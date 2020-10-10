@@ -712,7 +712,6 @@ About Section
   font-size: 24px;
   letter-spacing: 1px;
   color: #265A26;
-  margin-top: 5%;
 }
 
 .about p {
@@ -751,6 +750,10 @@ About Section
       flex-wrap: wrap;
 }
 
+.persons-container {
+  padding: 0 50px;
+}
+
 .about .team-item .person-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -773,26 +776,30 @@ About Section
   height: 200px;
   overflow: hidden;
   border-radius: 50%;
-  margin-left: -25%;
-  margin-top: -35%;
+  /* margin-left: -25%;
+  margin-top: -35%; */
+  margin: 10px 30px;
 }
 
 .about .team-item .person-item h4 {
   margin: 0;
+  font-style: normal;
+  font-weight: 400;
 }
 
-.about #lead .img-cropper {
-  width: 400px;
-  height: 400px;
+.about #director .img-cropper {
+  width: 300px;
+  height: 300px;
   overflow: hidden;
   border-radius: 50%;
-  margin-left: -25%;
-  margin-top: -35%;
+  /* margin-left: -15%;
+  margin-top: -15%; */
+  margin: 30px;
 }
 
-.about #aboutTeam {
+/* .about #aboutTeam {
   display: none;
-}
+} */
 
 /*--------------------------------------------------------------
 Schedule Section
