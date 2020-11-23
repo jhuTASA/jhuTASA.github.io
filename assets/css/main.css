@@ -712,6 +712,7 @@ About Section
   font-size: 24px;
   letter-spacing: 1px;
   color: #265A26;
+  margin-top: 5%;
 }
 
 .about p {
@@ -776,25 +777,29 @@ About Section
   height: 200px;
   overflow: hidden;
   border-radius: 50%;
-  /* margin-left: -25%;
-  margin-top: -35%; */
-  margin: 10px 30px;
+  /* margin-left: 25%;
+  margin-top: 35%; */
 }
 
 .about .team-item .person-item h4 {
-  margin: 0;
-  font-style: normal;
-  font-weight: 400;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.about #director .img-cropper {
-  width: 300px;
-  height: 300px;
+.about #lead .img-cropper {
   overflow: hidden;
   border-radius: 50%;
-  /* margin-left: -15%;
-  margin-top: -15%; */
-  margin: 30px;
+  /* margin-left: -25%; */
+}
+
+.img-cropper {
+  margin: 10px;
+}
+
+#director {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
 }
 
 /* .about #aboutTeam {
