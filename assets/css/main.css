@@ -395,7 +395,7 @@ Main
   background-position: center;
   -moz-background-size: cover;
   background-repeat: no-repeat;
-  padding: 150px 0;
+  padding: 300px 0;
 }
 
 @media (max-width: 680px) {
@@ -629,11 +629,11 @@ Main
 
 /* Sponsors in Main */
 #sponsors {
-  background-color: #265A26;
+  background-color: #70A861;
+  ;
   padding: 20px 10px;
   opacity: 1;
-  padding-bottom: 70px;
-  display: none;
+  /* display: none; */
 }
 
 #sponsors h2 {
@@ -649,9 +649,8 @@ Main
 
 #sponsors h3 {
   text-align: center;
-  margin-left: -30px;
-  margin-bottom: -45px;
-  color: #86B1BA;
+  color:#265A26;
+  font-size: 24px;
 }
 
 #sponsors .sponsor-blocks {
@@ -667,6 +666,50 @@ Main
 
 #sponsors .sponsor-blocks .sponsor-img {
   border: 1px solid #E3E1E1;
+}
+
+.sponsor-blocks > p {
+  color: white;
+  padding: 0 30px;
+}
+
+.sponsor-blocks > p > span {
+  color: #265A26;
+}
+
+.donate-button {
+  padding: 10px 30px;
+  font-size: 24px;
+  text-decoration: none;
+  border: 3px solidwhite;
+  z-index: 10;
+  background-color:#f73160;
+  color:  white;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-box-shadow: 0 2px 10px 5px#4f7744;
+          box-shadow: 0 2px 10px 5px #4f7744;
+}
+
+.donate-button:hover {
+  padding: 10px 25px;
+  color:#f73160;
+  font-style: italic;
+  letter-spacing: 2px;
+  -webkit-transition: all 0.5s ease-in-out 0s;
+  transition: all 0.5s ease-in-out 0s;
+  background-color: white;
+}
+
+@media (max-width: 760px) {
+  .donate-button {
+    padding: 2px 10px;
+  }
+  .donate-button:hover, .donate-button:active {
+    padding: 2px 7px;
+    letter-spacing: 0px;
+    color: white;
+  }
 }
 
 /*--------------------------------------------------------------
