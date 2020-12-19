@@ -937,9 +937,9 @@ Schedule Section
           flex-direction: column;
 }
 
-#schedule .schedule-item:hover {
+/* #schedule .schedule-item:hover {
   background-color: #bad5da;
-}
+} */
 
 #schedule .schedule-item time {
   display: inline-block;
@@ -1028,7 +1028,6 @@ Schedule Section
 }
 
 #schedule .schedule-item p {
-  font-style: italic;
   color: #888;
   margin-bottom: 20px;
   margin-right: 5%;
@@ -1051,11 +1050,20 @@ Schedule Section
   padding: 30px;
 }
 
-.tab-content {
+.program-tab-content {
   display: none;
 }
 
 #schedule .nav-tabs {
   display: none;
 }
+
+/*---------------------------------------------------
+Speakers Section
+-----------------------------------------------------*/
+#speakers {
+  margin: 80px 5% ;
+  padding-top: 100px;
+}
+
 /*# sourceMappingURL=main.css.map */
