@@ -992,7 +992,7 @@ Schedule Section
 #schedule .schedule-item .speaker {
   overflow: hidden;
   float: left;
-  margin: 0 10px 10px 0;
+  margin: 30px 50px 10px 0;
   height: 300px;
 }
 
@@ -1083,5 +1083,30 @@ Speakers Section
   margin: 80px 5% ;
   padding-top: 100px;
 }
+
+/* .gallery-row {
+  width: 100%;
+}
+
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+} */
 
 /*# sourceMappingURL=main.css.map */
