@@ -203,6 +203,7 @@ header .container {
 
 .register-button:hover {
   background-color: #f57d99;
+  color: #500013;
 }
 
 a.register-button {
