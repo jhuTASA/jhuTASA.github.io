@@ -879,9 +879,10 @@ Schedule Section
   margin: auto;
   display: block;
   border-bottom: 0;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   background-color: #f3f2ee;
   padding: 10px 0;
+  font-size: 24px;
 }
 
 #schedule .nav-tabs li {
@@ -1009,7 +1010,7 @@ Schedule Section
 }
 
 #schedule .schedule-item .keynote img {
-  margin-top: 30px;
+  /* margin-top: 30px; */
   width: 400px;
   height: auto;
 }
@@ -1068,13 +1069,13 @@ Schedule Section
   padding: 30px;
 }
 
-.program-tab-content {
+/* .program-tab-content {
   display: none;
 }
 
 #schedule .nav-tabs {
   display: none;
-}
+} */
 
 /*---------------------------------------------------
 Speakers Section

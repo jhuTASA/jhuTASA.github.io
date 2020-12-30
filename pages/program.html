@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="../assets/js/schedule.js" defer></script>
-    <script src='../assets/js/footprints-pages.js' defer></script>
+    <!-- <script src='../assets/js/footprints-pages.js' defer></script> -->
 
     <title>ITASA ECC 2021</title>
 
@@ -47,17 +47,56 @@
             <div class="header">
                 <h1>Program</h1>
                 <!-- <p>Here is the conference schedule.</p> -->
-                <p>Conference schedule coming soon!</p>
+                <p>See below for the conference schedule!</p>
             </div>
+
+            <!-- Schdule Day 0 -->
+            <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="day-0">
+
+                <h2 style='text-align: center;' style='margin-top: 100px'>Thursday</h2>
+                <h1 style='text-align: center; margin: 0'>Asynchronous</h1>
+                <p style='text-align: center; margin-top: -5px;'>Goal is to interact with the conference website jhu2021.itasa.org and participate in activities that align with the three tracks of the conference.
+                    </p>
+
+                <div class="row schedule-item" style='margin-top: 50px'>
+                    <div class="col-md-10">
+                        <h3>1. Jar of Expectations (expectations)
+                        </h3>
+                        <p>The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students. Attendees are encouraged to choose a ball that represents the expectation that they feel has most affected them, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row schedule-item">
+                    <div class="col-md-10">
+                        <h3>2. Sharing our Successes (success)
+                        </h3>
+                        <p>Share the successes of your friends (or yourself!) and tell others of the amazing achievements around you. Attendees are encouraged to share stories of success, whether traditional or nontraditional, and celebrate each other’s successes.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row schedule-item">
+                    <div class="col-md-10">
+                        <h3>3. Wall of Encouragement (support)
+                        </h3>
+                        <p>Attendees are encouraged to write a word of encouragement or advice that has stuck with them throughout their own paths, which will provide helpful insight to the community.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Schdule Day 0 -->
+
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="day-1Anchor" role="tab" data-toggle="tab">Day 1</a>
+                    <a class="nav-link active" id="day-1Anchor" role="tab" data-toggle="tab">Friday</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="day-2Anchor" role="tab" data-toggle="tab">Day 2</a>
+                    <a class="nav-link" id="day-2Anchor" role="tab" data-toggle="tab">Saturday</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="day-3Anchor" role="tab" data-toggle="tab">Day 3</a>
+                    <a class="nav-link" id="day-3Anchor" role="tab" data-toggle="tab">Sunday</a>
                 </li>
             </ul>
 
@@ -66,46 +105,35 @@
 
             <div class="tab-content row justify-content-center program-tab-content">
 
+                
                 <!-- Schdule Day 1 -->
                 <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="day-1">
 
-                    <div class="row schedule-item">
-                        <div class="col-md-2"><time>09:30 AM</time></div>
+                    <h2 style='text-align: center;'>Friday</h2>
+                    <h1 style='text-align: center; margin: 0'>Synchronous</h1>
+                    <p style='text-align: center; margin-top: -5px;'>Opening Ceremony and Social Events</p>
+
+                    <div class="row schedule-item" style='margin-top: 50px'>
+                        <div class="col-md-2"><time>6:00 PM EST</time></div>
                         <div class="col-md-10">
-                            <h3>Check-In</h3>
-                            <p>Welcome!</p>
+                            <h3>Social Event</h3>
+                            <p>Zoom - Main Room</p>
                         </div>
                     </div>
 
                     <div class="row schedule-item">
-                        <div class="col-md-2"><time>10:00 AM</time></div>
-                        <div class="col-md-10" style="margin-bottom:40px">
-                            <div class="speaker keynote" id="speaker1">
-                                <img src="../assets/img/speakers/speaker.png" alt="Tubs">
-                            </div>
-                            <h3>Keynote: <span>Tubs</span></h3>
-                            <p>A Chinese, Korean American rapper turned actress who recently won a golden globe for her
-                                lead role in The Farewell an autobiographical movie about family and the class between
-                                Asain and Western Cultures that emphasizes cultural expectations. Her personal story
-                                while not always the most relatable she comes of as a down to earth younger generational
-                                person who grew up with tiger parents.</p>
+                        <div class="col-md-2"><time>6:30 PM EST</time></div>
+                        <div class="col-md-10">
+                            <h3>Opening Ceremony</h3>
+                            <p>Zoom - Main Room</p>
                         </div>
                     </div>
 
                     <div class="row schedule-item">
-                        <div class="col-md-2"><time>12:00 AM</time></div>
+                        <div class="col-md-2"><time>7:00 PM EST</time></div>
                         <div class="col-md-10">
-                            <div class="speaker keynote" id="speaker2">
-                                <img src="../assets/img/speakers/speaker.png" alt="Tubs">
-                            </div>
-                            <h3>Keynote: <span>Tubs</span></h3>
-                            <p>Three-times Academy Award winning director, Lee Ang has gained international accolades of
-                                his numerous film productions. With “Father Knows Best” trilogy marking the debut of his
-                                career from Taiwan, Lee Ang has set no boundary of the film genre he creates since,
-                                ranging from Pulitzer-Prize finalist short story “Brokeback Mountain,” first-person
-                                narrative “Life of Pi,” to the more recent thriller “Gemini Man.” By relating his
-                                personal career path but also the common asain american stigma against creative success
-                                Lee will be talking about how to define and come to terms with your own success.</p>
+                            <h3>Social Event</h3>
+                            <p>Zoom - Main Room </p>
                         </div>
                     </div>
 
@@ -115,18 +143,34 @@
                 <!-- Schdule Day 2 -->
                 <div role="tabpanel" class="col-lg-9  tab-pane fade" id="day-2">
 
+                    <h2 style='text-align: center;' style='margin-top: 100px'>Saturday</h2>
+                    <h1 style='text-align: center; margin: 0'>Synchronous</h1>
+                    <p style='text-align: center; margin-top: -5px;'>Keynote, Track 1, and more.</p>
+
                     <div class="row schedule-item">
-                        <div class="col-md-2"><time>09:30 AM</time></div>
-                        <div class="col-md-10">
-                            <h3>Breakfast</h3>
-                            <p>Too early to wakeup.</p>
+                        <div class="col-md-2" style='margin-top: 50px'><time>12:00 PM EST</time></div>
+                        <div class="col-md-10" style="margin-bottom:40px">
+                            <div class="speaker keynote" style='
+                            height: 300px;'>
+                                <img style='width: 300px; margin-top: -30px'
+                                    src='../assets/img/speakers/Jenny Wang Headshot.jpg' alt="Jenny Wang">
+                            </div>
+                            <h3>Keynote: <span>Jenny Wang</span> </h3>
+                            <p>As a Taiwanese American discovering common struggles with people with diverse
+                                backgrounds,
+                                Jenny Wang has become deeply motivated to work towards solving one question: How do we
+                                ensure a just world for everyone, regardless of their circumstances?
+
+                                <br><br><a href="speakers.html">Read more...</a> </p>
+                            <br>
+                            <p>Platform - TBD</p>
                         </div>
                     </div>
 
                     <div class="row schedule-item">
-                        <div class="col-md-2"><time>10:00 AM</time></div>
+                        <div class="col-md-2"><time>1:15 PM EST</time></div>
                         <div class="col-md-10">
-                            <h3>Track 1: <span>The Weight of Expectations</span></h3>
+                            <h3>Track 1: <span>Expectations</span></h3>
                             <p>Expectations often cause pressure or confinement away from the freedom of choosing the
                                 best path for oneself. By expressing and identifying the various sources of expectations
                                 while relating them to personal stories or experiences can help attendees to identify
@@ -134,65 +178,69 @@
                         </div>
 
                         <div class="speaker-row">
-                            <div class="speaker workshop" id="speaker3">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker1">
-                                <h3>Speaker3</h3>
+                            <div class="speaker workshop" id="speaker3"style='width: 300px; height: 400px;'>
+                                <img style='margin-top: -50px; height: 350px' src="../assets/img/speakers/speaker.png" alt="Speaker1">
+                                <h3>Bart Kwan</h3>
                             </div>
-                            <div class="speaker workshop" id="speaker4">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker2">
-                                <h3>Speaker4</h3>
-                            </div>
-
-                            <div class="speaker workshop" id="speaker5">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker3">
-                                <h3>Speaker5</h3>
+                            <div class="speaker workshop" id="speaker4" style='width: 300px; height: 400px;'>
+                                <img style='margin-top: 0px; height: 300px' src="../assets/img/speakers/Leona Chen Headshot.jpg"
+                                    alt="Speaker2">
+                                <h3>Leona Chen</h3>
                             </div>
                         </div>
+
 
                         <div class="speaker-info">
                             <p id="speaker3">
-                                Journalist now executive director of Bloomberg Technology and an author of a book
-                                about
-                                silicon valley “breaking up the boys club” (discrimination and gender sterotypes)
-                                Speaking about
-                                diversity and the struggles of societal expectations as an asain american women
-                                in the Tech industry as well as pressures or expectations due to her familial hisory
-                                of journalism.
+                                Bart Kwan - Youtuber, Actor, & Entrepreneur
                             </p>
                             <p id="speaker4">
-                                Taiwanese Canadian who left her job in Finance and founded Anchor Taiwan a
-                                bi-lingual team known for
-                                softlanding consultancy and innovation scouting. She has since then served as the
-                                CEO to bring thousands
-                                of change makers together as an ecosystem builder. In 2019, Elisa launched Anchor
-                                Venture Partners, an
-                                early stage cross-border investment platform. Expectations growing up good with
-                                numbers and the
-                                stereotypes faced by younger Asain Americans across the globe and how this affects
-                                and or preselects
-                                against women in tech and or Asain Americans as creatives.
-                            </p>
-                            <p id="speaker5">
-                                Debuted poetry collection from Tinfish Press. The poems tackle family, culture,
-                                language, migration and
-                                history in a non-prescriptive way, relying instead on emotions embedded in precise,
-                                culturally coded
-                                details–quotidian (but not ordinary) objects such as tiger balm, prince noodles, tea
-                                eggs. AS an Author
-                                of a book built upon parent and familial expectations of responsibility Leone will
-                                explore the
-                                commonalities of expectations of asain identity on families and how her own identity
-                                influences her own
-                                path in contrast to how it could constrain her own path.
+                                Leona Chen - Poet Peer, Graduate of UPenn
                             </p>
                         </div>
 
+                        <p>Zoom - Breakout Rooms</p>
+                    </div>
+
+
+                    <div class="row schedule-item">
+                        <div class="col-md-2"><time>2:30 PM EST</time></div>
+                        <div class="col-md-10">
+                            <h3>Social Event</h3>
+                            <p>Zoom - Breakout Rooms</p>
+                        </div>
                     </div>
 
                     <div class="row schedule-item">
-                        <div class="col-md-2"><time>10:00 AM</time></div>
+                        <div class="col-md-2"><time>6:30 PM EST</time></div>
                         <div class="col-md-10">
-                            <h3>Track 2: <span>The Many Faces of Success</span></h3>
+                            <h3>Opening Ceremony</h3>
+                            <p>Zoom - Main Room</p>
+                        </div>
+                    </div>
+
+                    <div class="row schedule-item">
+                        <div class="col-md-2"><time>9:00 PM EST</time></div>
+                        <div class="col-md-10">
+                            <h3>Social event (“afterparty”)</h3>
+                            <p>Discord</p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End Schdule Day 2 -->
+
+                <!-- Schdule Day 3 -->
+                <div role="tabpanel" class="col-lg-9  tab-pane fade" id="day-3">
+
+                    <h2 style='text-align: center;' style='margin-top: 100px'>Sunday</h2>
+                    <h1 style='text-align: center; margin: 0'>Synchronous</h1>
+                    <p style='text-align: center; margin-top: -5px;'>Track 2, Track 3, and Closing Ceremony.</p>
+
+                    <div class="row schedule-item">
+                        <div class="col-md-2"><time>12:00 PM EST</time></div>
+                        <div class="col-md-10">
+                            <h3>Track 2: <span>Success</span></h3>
                             <p>Attendees will meet with traditionally and non-traditionally successful speakers who will
                                 share stories about their personal paths to their own definitions of success. This track
                                 will allow attendees to repicture or redefine their own measures of success and giving
@@ -200,56 +248,27 @@
                         </div>
 
                         <div class="speaker-row">
-                            <div class="speaker workshop" id="speaker6">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker1">
-                                <h3>Speaker6</h3>
-                            </div>
-                            <div class="speaker workshop" id="speaker7">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker2">
-                                <h3>Speaker7</h3>
-                            </div>
-
-                            <div class="speaker workshop" id="speaker8">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker3">
-                                <h3>Speaker8</h3>
+                            <div class="speaker workshop" id="speaker6" style='width: 400px'>
+                                <img style='height: auto; width: 300px; margin-top: 10px; margin-left: -20px'
+                                    src="../assets/img/speakers/Eric Tsai Headshot.jpg" alt="Speaker1">
+                                <h3>Eric Tsai</h3>
                             </div>
                         </div>
 
                         <div class="speaker-info">
                             <p id="speaker6">
-                                “Just because I don’t get a paycheck doesn’t mean there isn’t value in that work”
-                                --Evelyn Yang is a Chinese American was a former marketing executive for L’Oreal and
-                                wife of Andrew Yang. She played a large role in helping him set up Venture of America
-                                and is a strong support behind his presidential campaign. After the birth of their first
-                                son, Evelyn became a stay-at-home mother and strong advocate of combating the stigma
-                                surrounding special needs children. Evelyn is able to speak on pursuing a traditionally
-                                successful career and also fulfilling a traditional role as a mother.
-                            </p>
-                            <p id="speaker7">
-                                Three-times Academy Award winning director, Lee Ang has gained international accolades
-                                of his numerous film productions. With “Father Knows Best” trilogy marking the debut of
-                                his career from Taiwan, Lee Ang has set no boundary of the film genre he creates since,
-                                ranging from Pulitzer-Prize finalist short story “Brokeback Mountain,” first-person
-                                narrative “Life of Pi,” to the more recent thriller “Gemini Man.” By relating his
-                                personal career path but also the common asain american stigma against creative success
-                                Lee will be talking about how to define and come to terms with your own success.
-                            </p>
-                            <p id="speaker8">
-                                Taiwanese American and Hopkins alumnus, Chieh Huang is the cofounder and CEO of
-                                Boxed.com, a company that’s disrupting the wholesale shopping club experience. To date,
-                                Boxed.com has raised over $250 million dollars and is one of the most widely used online
-                                shops. Huang will speak on re-defining success and taking small steps rather than
-                                letting the world define your happiness or success and as this relates to the hardships
-                                of starting your own company.
+                                Eric Tsai - Outreach for Taiwan, Founder
                             </p>
                         </div>
+
+                        <p>Zoom - Breakout Rooms</p>
 
                     </div>
 
                     <div class="row schedule-item">
-                        <div class="col-md-2"><time>10:00 AM</time></div>
+                        <div class="col-md-2"><time>1:15 PM EST</time></div>
                         <div class="col-md-10">
-                            <h3>Track 3: <span>The Outcome of Support</span></h3>
+                            <h3>Track 3: <span>Support</span></h3>
                             <p>While simultaneously inspiring the attendees to dream big and get back to sketching their
                                 own path, we hope to inspire them to set healthy and free expectations on those they
                                 support. By identifying the expectations that have caused them stress and redefining how
@@ -259,71 +278,36 @@
                         </div>
 
                         <div class="speaker-row">
-                            <div class="speaker workshop" id="speaker9">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker9">
-                                <h3>Speaker9</h3>
-                            </div>
-                            <div class="speaker workshop" id="speaker10">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker10">
-                                <h3>Speaker10</h3>
-                            </div>
-
-                            <div class="speaker workshop" id="speaker11">
-                                <img src="../assets/img/speakers/speaker.png" alt="Speaker11">
-                                <h3>Speaker11</h3>
+                            <div class="speaker workshop" id="speaker6" style='width: 300px; height: 400px;'>
+                                <img style='width: auto; height: 350px; margin-top: -20px;'
+                                    src="../assets/img/speakers/Steve Chu Headshot.jpg" alt="Speaker1">
+                                <h3>Steve Chu</h3>
                             </div>
                         </div>
 
                         <div class="speaker-info">
-                            <p id="speaker9">
-                                Journalist now executive director of Bloomberg Technology and an author of a book
-                                about
-                                silicon valley “breaking up the boys club” (discrimination and gender sterotypes)
-                                Speaking about
-                                diversity and the struggles of societal expectations as an asain american women
-                                in the Tech industry as well as pressures or expectations due to her familial hisory
-                                of journalism.
-                            </p>
-                            <p id="speaker10">
-                                Taiwanese Canadian who left her job in Finance and founded Anchor Taiwan a
-                                bi-lingual team known for
-                                softlanding consultancy and innovation scouting. She has since then served as the
-                                CEO to bring thousands
-                                of change makers together as an ecosystem builder. In 2019, Elisa launched Anchor
-                                Venture Partners, an
-                                early stage cross-border investment platform. Expectations growing up good with
-                                numbers and the
-                                stereotypes faced by younger Asain Americans across the globe and how this affects
-                                and or preselects
-                                against women in tech and or Asain Americans as creatives.
-                            </p>
-                            <p id="speaker11">
-                                Debuted poetry collection from Tinfish Press. The poems tackle family, culture,
-                                language, migration and
-                                history in a non-prescriptive way, relying instead on emotions embedded in precise,
-                                culturally coded
-                                details–quotidian (but not ordinary) objects such as tiger balm, prince noodles, tea
-                                eggs. AS an Author
-                                of a book built upon parent and familial expectations of responsibility Leone will
-                                explore the
-                                commonalities of expectations of asain identity on families and how her own identity
-                                influences her own
-                                path in contrast to how it could constrain her own path.
+                            <p id="speaker6">
+                                Steve Chu - Ekiben, Founder & Chef
                             </p>
                         </div>
 
+                        <p>Zoom - Breakout Rooms</p>
+
                     </div>
 
-                </div>
-                <!-- End Schdule Day 2 -->
-
-                <!-- Schdule Day 3 -->
-                <div role="tabpanel" class="col-lg-9  tab-pane fade" id="day-3">
                     <div class="row schedule-item">
-                        <div class="col-md-2"><time>09:30 AM</time></div>
+                        <div class="col-md-2"><time>2:30 PM EST</time></div>
                         <div class="col-md-10">
-                            <h3>Check-Out</h3>
-                            <p>Time to leave.</p>
+                            <h3>Closing Ceremony</h3>
+                            <p>Zoom - Main Room</p>
+                        </div>
+                    </div>
+
+                    <div class="row schedule-item">
+                        <div class="col-md-2"><time>3:00 PM EST</time></div>
+                        <div class="col-md-10">
+                            <h3>Social event</h3>
+                            <p>Discord</p>
                         </div>
                     </div>
                 </div>
