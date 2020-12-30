@@ -169,7 +169,7 @@ header .container {
 }
 
 .nav-menu li,
-.nav-menu a {
+.nav-menu a:not(.register-button) {
   padding: 0 10px;
   display: inline-block;
   white-space: nowrap;
@@ -197,8 +197,25 @@ header .container {
   }
 }
 
-.nav-menu a:not(.menu-active) {
+.nav-menu a:not(.menu-active):not(.register-button) {
   color: #041315;
+}
+
+.register-button:hover {
+  background-color: #f57d99;
+}
+
+a.register-button {
+  color:white;
+  background-color: #cd3f60;
+  padding: 10px 12px;
+  margin-left: 5%;
+  margin-right: -5%;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
 }
 
 /* --------------------------------------------------------------
