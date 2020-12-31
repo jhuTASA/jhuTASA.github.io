@@ -51,7 +51,7 @@ $(function() {
     let navTop = $('.nav-tabs').offset().top; 
 
     $(window).scroll(function() {
-        let currentScroll = $(window).scrollTop() + 70; // get current position
+        let currentScroll = $(window).scrollTop() + 120; // get current position
 
         if (currentScroll >= navTop) {           // apply position: fixed if you
             $('.nav-tabs').css({                      // scroll to that element or below it
