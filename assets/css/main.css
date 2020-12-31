@@ -1031,7 +1031,7 @@ Schedule Section
   overflow: hidden;
   float: left;
   margin: 30px 50px 10px 0;
-  height: 300px;
+  /* height: 300px; */
 }
 
 #schedule .schedule-item .speaker img {
@@ -1046,9 +1046,6 @@ Schedule Section
   #schedule .schedule-item .speaker img {
     margin-left:0;
   }
-  #schedule .schedule-item .keynote img {
-    width: 300px;
-  }
 }
 
 #schedule .schedule-item .speaker p {
@@ -1057,7 +1054,7 @@ Schedule Section
 
 #schedule .schedule-item .keynote img {
   /* margin-top: 30px; */
-  width: 400px;
+  /* width: 400px; */
   height: auto;
 }
 
@@ -1078,7 +1075,7 @@ Schedule Section
 
 #schedule .schedule-item .workshop img {
   width: auto;
-  height: 400px;
+  /* height: 400px; */
 }
 
 #schedule .schedule-item h3 {
@@ -1129,6 +1126,10 @@ Speakers Section
   padding-top: 100px;
 }
 
+.speaker-img {
+  width: 400px;
+}
+
 /* .gallery-row {
   width: 100%;
 }
@@ -1159,7 +1160,7 @@ div.desc {
   #schedule {
     padding: 0 15px 60px 15px;
   }
-  #schedule.speaker {
+  .speaker-img {
     width: 300px;
     height: auto;
   }
