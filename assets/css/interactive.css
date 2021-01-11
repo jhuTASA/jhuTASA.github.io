@@ -18,12 +18,14 @@
   width: 5em;
   height: 5em;
   cursor: pointer;
+  border: 1px solid black;
 }
 
 .jar-ball {
   border-radius: 50%;
-  width: 2em;
-  height: 2em;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
   float: left;
+  border: 1px solid black;
 }

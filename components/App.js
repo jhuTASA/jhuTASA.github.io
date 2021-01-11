@@ -12,9 +12,13 @@ class App extends Component {
             green: 0,
             purple: 0,
         }
+        localStorage.setItem("submitted", "false");
     }
 
     addBall(color) {
+        if(localStorage.getItem("submitted") == "true") {
+            return;
+        }
         this.setState({
             jar: [
                 ...this.state.jar, color
@@ -55,10 +59,10 @@ class App extends Component {
                 })
                 break;
         }
-        console.log("Temp", temp);
         this.setState({
             displayBalls: temp
         });
+        localStorage.setItem("submitted", true);
     }
 
     render() {
@@ -99,7 +103,7 @@ class App extends Component {
                 </div>
                 <div style={{height: "500px"}}>
                     <h2 style={{marginLeft: "1em", marginBottom: 5}}>
-                        Your Jar
+                        Our Jar
                     </h2>
                     <div 
                         style={{
