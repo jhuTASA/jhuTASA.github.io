@@ -7,23 +7,13 @@ class App extends Component {
         this.state = {
             jar: {},
             displayBalls: [],
+            red: 0,
+            blue: 0,
+            green: 0,
+            purple: 0,
         }
     }
 
-    renderBalls(jar) {
-        var temp = this.state.displayBalls.slice();
-        for (var i = 0; i < jar.length(); i++) {
-            switch(jar[i]) {
-                case "red":
-                    temp.push(
-                        <div className='ball' style={{backgroundColor: "red"}} />
-                    ) 
-                    break;
-            }
-            this.setState(displayBalls, temp);
-        }
-    }
-    
     addBall(color) {
         this.setState({
             jar: [
@@ -36,21 +26,33 @@ class App extends Component {
                 temp.push(
                     <div className='jar-ball' style={{backgroundColor: "red"}} />
                 ) 
+                this.setState({
+                    red: this.state.red+1
+                })
                 break;
             case "blue":
                 temp.push(
                     <div className='jar-ball' style={{backgroundColor: "blue"}} />
                 ) 
+                this.setState({
+                    blue: this.state.blue+1
+                })
                 break;
             case "purple":
                 temp.push(
                     <div className='jar-ball' style={{backgroundColor: "purple"}} />
                 ) 
+                this.setState({
+                    purple: this.state.purple+1
+                })
                 break;
             case "green":
                 temp.push(
                     <div className='jar-ball' style={{backgroundColor: "green"}} />
                 ) 
+                this.setState({
+                    green: this.state.green+1
+                })
                 break;
         }
         console.log("Temp", temp);
@@ -95,19 +97,20 @@ class App extends Component {
                         </div>
                     </div>
                 </div>
-                <div >
+                <div style={{height: "500px"}}>
                     <h2 style={{marginLeft: "1em", marginBottom: 5}}>
                         Your Jar
                     </h2>
                     <div 
                         style={{
+                            float: "left",
                             border: "3px solid black", 
                             borderRadius: "15px",
                             borderTop: "none",
                             borderTopLeftRadius: "0px",
                             borderTopRightRadius: "0px",
                             height: "400px", 
-                            width: "290px",
+                            width: "270px",
                             marginLeft: "30px",
                             }}>
                             <div style={{
@@ -118,6 +121,12 @@ class App extends Component {
                             }}>
                                 {this.state.displayBalls}
                             </div>
+                    </div>
+                    <div style={{float: "left", marginLeft: "2em"}}>
+                        <h3>Family: {this.state.red}</h3>
+                        <h3>Friends: {this.state.blue}</h3>
+                        <h3>Society: {this.state.purple}</h3>
+                        <h3>Yourself: {this.state.green}</h3>
                     </div>
                 </div>
             </div>
