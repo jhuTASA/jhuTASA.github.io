@@ -1,4 +1,29 @@
 .interactive {
     background-color: #f3f2ee;
-    
-  }
+}
+
+.options {
+  float: left;
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+.ball-options {
+  margin-top: 0;
+  height: 10em;
+}
+
+.ball {
+  border-radius: 50%;
+  width: 5em;
+  height: 5em;
+  cursor: pointer;
+}
+
+.jar-ball {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  float: left;
+}
