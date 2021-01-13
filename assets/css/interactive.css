@@ -11,6 +11,10 @@
 .ball-options {
   margin-top: 0;
   height: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .ball {
@@ -18,7 +22,9 @@
   width: 5em;
   height: 5em;
   cursor: pointer;
-  border: 1px solid black;
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: 7em;
 }
 
 .jar-ball {
@@ -27,5 +33,23 @@
   height: 25px;
   cursor: pointer;
   float: left;
-  border: 1px solid black;
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: 35px;
+}
+
+@media (max-width: 760px) {
+  .jar-container {
+    width: 300px;
+  }
+
+  .ball-options {
+    display: block;
+  }
+}
+
+.jar-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 450px;
 }
