@@ -16,9 +16,9 @@ class App extends Component {
     }
 
     addBall(color) {
-        // if(localStorage.getItem("submitted") == "true") {
-        //     return;
-        // }
+        if(localStorage.getItem("submitted") == "true") {
+            return;
+        }
         this.setState({
             jar: [
                 ...this.state.jar, color
@@ -69,10 +69,10 @@ class App extends Component {
         return (
             <div className='interactive'>
                 <div>
-                    <h1 style={{ marginLeft: "1em" }}>Jar of Expectations</h1>
+                    <h2 style={{ marginLeft: "1em" }}>Jar of Expectations</h2>
                     <p style={{ margin: "3em", marginTop: 0 }}>The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students. Attendees are encouraged to choose a ball that represents the expectation that they feel has most affected them, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.</p>
                     <div className='options-box'>
-                        <h2 style={{ marginLeft: "1em", marginBottom: "0px" }}>Expectations</h2>
+                        <h1 style={{ marginLeft: "1em", marginBottom: "0px" }}>Expectations</h1>
                         <div className='ball-options'>
                             <div className='options'>
                                 <h3>Family</h3>
@@ -102,9 +102,9 @@ class App extends Component {
                     </div>
                 </div>
                 <div style={{ height: "500px" }}>
-                    <h2 style={{ marginLeft: "1em", marginBottom: 5 }}>
+                    <h1 style={{ marginLeft: "1em", marginBottom: 5 }}>
                         Our Jar
-                    </h2>
+                    </h1>
                     <div className='jar-container'>
 
                         <div
@@ -117,10 +117,6 @@ class App extends Component {
                                 borderTopRightRadius: "0px",
                                 height: "400px",
                                 width: "270px",
-                                // display: 'flex',
-                                // justifyContent: 'center',
-                                // alignItems: 'center',
-                                // width: '100%',
                             }}>
                             <div style={{
                                 backgroundColor: "yellow",

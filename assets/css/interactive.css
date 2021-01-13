@@ -36,6 +36,7 @@
   background-position: center; 
   background-repeat: no-repeat;
   background-size: 35px;
+  transform: rotate(180deg);
 }
 
 @media (max-width: 760px) {
