@@ -10,30 +10,26 @@ import db from '../firebase'
 
 // import "../assets/css/main.css";
 import Header from './header'
+import { render } from 'react-dom';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            jar: {},
-            displayBalls: [],
-            red: 0,
-            blue: 0,
-            green: 0,
-            purple: 0,
+            jar: [],
         }
+        this.redCount = 0;
+        this.blueCount = 0;
+        this.greenCount = 0;
+        this.purpleCount = 0;
 
         this.addBall = this.addBall.bind(this)
     }
 
-    componentDidMount() {
-        var balls = this.getBalls();
-        this.setState({ jar: balls });
-        this.renderBalls(balls);
-    }
 
     // RESTful add call to firebase
     add_ball(color) {
+        this.resetCounts();
         console.log(color);
         event.preventDefault();
         db.collection("expectations-jar").add({
@@ -42,119 +38,71 @@ class App extends Component {
         })
             .then(function (docRef) {
                 console.log("Ball written with ID: ", docRef.id);
-                // localStorage.setItem("ballSelected", color);
             })
             .catch(function (error) {
                 console.error("Error adding ball: ", error);
             });
+            this.getBalls()
     }
 
     addBall(color) {
         console.log("COLOR", color);
-        this.add_ball(color);
-        var temp = this.state.displayBalls.slice();
         switch (color) {
             case "red":
-                temp.push(
-                    <div className='jar-ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
-                )
-                this.setState({
-                    red: this.state.red + 1
-                })
-                break;
+
+                this.redCount++;
+                return <div className='jar-ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
+
             case "blue":
-                temp.push(
-                    <div className='jar-ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
-                )
-                this.setState({
-                    blue: this.state.blue + 1
-                })
-                break;
+
+                this.blueCount++;
+                return <div className='jar-ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
+
             case "purple":
-                temp.push(
-                    <div className='jar-ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
-                )
-                this.setState({
-                    purple: this.state.purple + 1
-                })
-                break;
+
+                this.purpleCount++;
+                return <div className='jar-ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
+
             case "green":
-                temp.push(
-                    <div className='jar-ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
-                )
-                this.setState({
-                    green: this.state.green + 1
-                })
-                break;
+
+                this.greenCount++;
+                return <div className='jar-ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
+
         }
-        this.setState({
-            displayBalls: temp
-        });
+    }
+
+    resetCounts() {
+        this.redCount = 0;
+        this.blueCount = 0;
+        this.purpleCount = 0;
+        this.greenCount = 0;
+    }
+
+    componentDidMount() {
+        this.getBalls()
     }
 
     getBalls() {
+        let currentComponent = this;
         var balls = [];
+        this.resetCounts();
+
         db.collection("expectations-jar").get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     // doc.data() is never undefined for query doc snapshots
                     // console.log(doc.id, " => ", doc.data());
                     // console.log(JSON.stringify(doc.data().color));
-                    balls.push(JSON.stringify(doc.data().color));
+                    balls.push(doc.data().color);
                 });
                 console.log(balls);
-                return balls;
+                currentComponent.setState({
+                    jar: balls
+                })
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
     }
-
-    renderBalls(balls) {
-        if (balls === undefined) {
-            return;
-        }
-        balls.forEach(function (ball) {
-            switch (ball) {
-                case "red":
-                    temp.push(
-                        <div className='jar-ball' style={{ backgroundColor: "red" }} />
-                    )
-                    this.setState({
-                        red: this.state.red + 1
-                    })
-                    break;
-                case "blue":
-                    temp.push(
-                        <div className='jar-ball' style={{ backgroundColor: "blue" }} />
-                    )
-                    this.setState({
-                        blue: this.state.blue + 1
-                    })
-                    break;
-                case "purple":
-                    temp.push(
-                        <div className='jar-ball' style={{ backgroundColor: "purple" }} />
-                    )
-                    this.setState({
-                        purple: this.state.purple + 1
-                    })
-                    break;
-                case "green":
-                    temp.push(
-                        <div className='jar-ball' style={{ backgroundColor: "green" }} />
-                    )
-                    this.setState({
-                        green: this.state.green + 1
-                    })
-                    break;
-            }
-            this.setState({
-                displayBalls: temp
-            });
-        });
-    }
-
-
 
     render() {
         return (
@@ -197,25 +145,25 @@ class App extends Component {
                                     <div className='options'>
                                         <h3>Family</h3>
                                         <div className='ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
-                                            onClick={() => this.addBall("red")}
+                                            onClick={() => this.add_ball("red")}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Friends</h3>
                                         <div className='ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
-                                            onClick={() => this.addBall("blue")}
+                                            onClick={() => this.add_ball("blue")}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Society</h3>
                                         <div className='ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
-                                            onClick={() => this.addBall("purple")}
+                                            onClick={() => this.add_ball("purple")}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Yourself</h3>
                                         <div className='ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
-                                            onClick={() => this.addBall("green")}
+                                            onClick={() => this.add_ball("green")}
                                         />
                                     </div>
                                 </div>
@@ -244,15 +192,16 @@ class App extends Component {
                                         position: 'relative',
                                         top: '400px',
                                     }}>
-                                        {this.state.displayBalls}
+                                        {this.state.jar.map((value) => (this.addBall(value)))}
                                     </div>
                                 </div>
                                 <div style={{ float: "left", marginLeft: "2em" }}>
-                                    <h3>Family: {this.state.red}</h3>
-                                    <h3>Friends: {this.state.blue}</h3>
-                                    <h3>Society: {this.state.purple}</h3>
-                                    <h3>Yourself: {this.state.green}</h3>
+                                    <h3>Family: {this.redCount}</h3>
+                                    <h3>Friends: {this.blueCount}</h3>
+                                    <h3>Society: {this.purpleCount}</h3>
+                                    <h3>Yourself: {this.greenCount}</h3>
                                 </div>
+
                             </Grid>
                             <Grid item xs={1}>
                             </Grid>
