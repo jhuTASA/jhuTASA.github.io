@@ -90,12 +90,16 @@ class App extends Component {
         db.collection("expectations-jar").get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    // console.log(doc.id, " => ", doc.data());
-                    // console.log(JSON.stringify(doc.data().color));
                     balls.push(doc.data().color);
                 });
                 console.log(balls);
+
+                //handle jar overflow: randomize array then take the first 240 elements
+                if (balls.length > 240) {
+                    balls.sort(function() { return 0.5 - Math.random() });
+                    balls = balls.slice(0, 240)
+                }
+
                 currentComponent.setState({
                     jar: balls
                 })
