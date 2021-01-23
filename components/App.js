@@ -16,7 +16,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            jar: [],
+            jar: []
         }
         this.redCount = 0;
         this.blueCount = 0;
@@ -46,28 +46,33 @@ class App extends Component {
     }
 
     addBall(color) {
+        var totalCount = this.redCount + this.blueCount + this.greenCount + this.purpleCount;
         console.log("COLOR", color);
         switch (color) {
             case "red":
 
                 this.redCount++;
-                return <div className='jar-ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
-
+                if(totalCount > 240)
+                    return <div className='jar-ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
+                return;
             case "blue":
 
                 this.blueCount++;
-                return <div className='jar-ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
-
+                if(totalCount > 240)
+                    return <div className='jar-ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
+                return;
             case "purple":
 
                 this.purpleCount++;
-                return <div className='jar-ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
-
+                if(totalCount > 240)
+                    return <div className='jar-ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
+                return;
             case "green":
 
                 this.greenCount++;
-                return <div className='jar-ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
-
+                if(totalCount > 240)
+                    return <div className='jar-ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
+                return;
         }
     }
 
@@ -94,10 +99,9 @@ class App extends Component {
                 });
                 console.log(balls);
 
-                //handle jar overflow: randomize array then take the first 240 elements
+                //handle jar overflow: randomize array (will eventually only take the first 240 elements)
                 if (balls.length > 240) {
                     balls.sort(function() { return 0.5 - Math.random() });
-                    balls = balls.slice(0, 240)
                 }
 
                 currentComponent.setState({
