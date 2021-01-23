@@ -22,8 +22,8 @@ class App extends Component {
         this.blueCount = 0;
         this.greenCount = 0;
         this.purpleCount = 0;
-
         this.addBall = this.addBall.bind(this)
+        this.expectationsDialog = false;
     }
 
 
@@ -74,6 +74,43 @@ class App extends Component {
                     return <div className='jar-ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
                 return;
         }
+    }
+
+    ballDialog(ball) {
+        var description = "";
+        var title = "";
+        var img = "";
+        switch(ball) {
+            case 'Family':
+                description = "Family is important!"
+                title = "Family"
+                break;
+            case 'Friends':
+                description = "Love your friends!"
+                title = "Friends"
+                break;
+            case 'Society':
+                description = "We live in a society!"
+                title = "friends"
+                break;
+            case 'Yourself':
+                description = "Love yourself girl"
+                title = "Yourself"
+                break;
+            default:
+                break;
+        }
+
+        return(
+            <Grid container xs={12}>
+                <Typography variant="h2" style={{marginBottom: "5%"}}>
+                    {title}
+                </Typography>
+                <Typography variant="h3">
+                    {description}
+                </Typography>
+            </Grid>
+        )
     }
 
     resetCounts() {
@@ -177,41 +214,46 @@ class App extends Component {
                                 </div>
                             </Grid>
                         </Grid>
-                        <h2 style={{ marginLeft: "4vw", marginBottom: "0px", fontSize: "calc(16px + 0.6em)" }}>
+                        <h2 style={{ marginLeft: "3vw", marginBottom: "0px", fontSize: "calc(18px + 0.6em)" }}>
                             Our Jar
                         </h2>
-                        <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-                            <Grid item xs={4}>
+                        <Grid container spacing={3} style={{ marginBottom: "25vh" }}>
+                            <Grid item md={2} xs={0}>
                             </Grid>
-                            <Grid item xs={7}>
+                            <Grid item xs={8}>
                                 <div style={{
+                                    zIndex: 1,
                                     float: "left",
                                     border: "3px solid black",
                                     borderRadius: "15px",
                                     borderTop: "none",
                                     borderTopLeftRadius: "0px",
                                     borderTopRightRadius: "0px",
-                                    height: "400px",
-                                    width: "375px",
+                                    marginTop: "10vh",
+                                    position: "relative",
+                                    height: "130%",
+                                    width: "100%",
                                 }}>
                                     <div style={{
-                                        backgroundColor: "yellow",
+                                        zIndex: 1,
                                         transform: 'scaleY(-1)',
-                                        position: 'relative',
-                                        top: '400px',
+                                        position: "absolute",
+                                        width: "100%",
+                                        height: "100%",
+                                        paddingLeft: "0.5%",
+                                        marginBottom: "1%",
                                     }}>
                                         {this.state.jar.map((value) => (this.addBall(value)))}
                                     </div>
                                 </div>
-                                <div style={{ float: "left", marginLeft: "2em" }}>
+                            </Grid>
+                            <Grid item md={2} xs={4}>
+                                <div style={{ float: "left", marginLeft: "1%", marginTop: '10vh'}}>
                                     <h3>Family: {this.redCount}</h3>
                                     <h3>Friends: {this.blueCount}</h3>
                                     <h3>Society: {this.purpleCount}</h3>
                                     <h3>Yourself: {this.greenCount}</h3>
                                 </div>
-
-                            </Grid>
-                            <Grid item xs={1}>
                             </Grid>
                         </Grid>
                     </Container>
@@ -237,16 +279,15 @@ class App extends Component {
                                 <div style={{
                                     backgroundColor: "rgb(112,168,97, 0.4)",
                                     width: "100%",
-                                    height: "auto",
                                     borderTopLeftRadius: "15px",
                                     borderTopRightRadius: "15px",
                                     borderBottom: "1px solid #c4c4c4",
                                 }}>
-                                    <Grid container spacing={3}>
+                                    <Grid container>
                                         <Grid item xs={3}>
                                             <TextField placeholder="Your name (optional)"
                                                 style={{
-                                                    width: "100%",
+                                                    width: "80%",
                                                     backgroundColor: "white",
                                                     padding: "8px",
                                                     fontSize: "calc(16px + 0.2em)",
@@ -265,7 +306,7 @@ class App extends Component {
                                                     backgroundColor: "white",
                                                     margin: "10px",
                                                     marginLeft: "1em",
-                                                    width: "100%",
+                                                    width: "80%",
                                                     padding: "8px",
                                                     fontSize: "calc(14px + 0.2em)",
                                                     borderRadius: "5px",
@@ -323,11 +364,12 @@ class App extends Component {
                                     borderTopRightRadius: "15px",
                                     borderBottom: "1px solid #c4c4c4",
                                 }}>
-                                    <Grid container spacing={3}>
+                                    <Grid container>
                                         <Grid item xs={3}>
                                             <TextField placeholder="Your name (optional)"
                                                 style={{
-                                                    width: "100%",
+                                                    zIndex: 1,
+                                                    width: "80%",
                                                     backgroundColor: "white",
                                                     padding: "8px",
                                                     fontSize: "calc(16px + 0.2em)",
@@ -343,10 +385,11 @@ class App extends Component {
                                                 variant="standard"
                                                 multiline rows={3}
                                                 style={{
+                                                    zIndex: 1,
                                                     backgroundColor: "white",
                                                     margin: "10px",
                                                     marginLeft: "1em",
-                                                    width: "100%",
+                                                    width: "80%",
                                                     padding: "8px",
                                                     fontSize: "calc(14px + 0.2em)",
                                                     borderRadius: "5px",
@@ -358,6 +401,7 @@ class App extends Component {
                                         <Grid item xs={2}>
                                             <Button variant="contained"
                                                 style={{
+                                                    zIndex: 1,
                                                     border: "1px solid #70A861",
                                                     borderRadius: "15px",
                                                     backgroundColor: "#70A861",
@@ -370,7 +414,7 @@ class App extends Component {
                                                 }}>
                                                 <Typography variant="body1" style={{ color: "white" }}>
                                                     Share
-                                                </Typography>
+                                        </Typography>
                                             </Button>
                                         </Grid>
                                         <Grid item xs={'auto'} />

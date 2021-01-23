@@ -4,3 +4,4 @@ npm
 package-lock.json
 *.json
 node_modules/@types/uglify-js/index.d.ts
+*/node_modules/*
