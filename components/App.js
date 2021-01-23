@@ -158,30 +158,61 @@ class App extends Component {
     render() {
         return (
             <div className='interactive'>
-                {/* <Header /> */}
-                <header id="header">
-                    <div className="container">
-                        <nav id="nav-menu-container">
-                            <ul className="nav-menu">
-                                <li className="menu-active">
-                                    {/* <strong> */}
-                                    <a className="menu-active home" href="/index.html">Home</a>
-                                    {/* </strong> */}
-                                </li>
-                                <li className="aboutAnchor">
-                                    <a className='home' href="./about.html">About</a>
-                                </li>
-                                <li className="programAnchor">
-                                    <a className='home' href="./program.html">Program</a>
-                                </li>
-                                <li className="speakersAnchor">
-                                    <a className='home' href="./speakers.html">Speakers</a>
-                                </li>
-                                <a className="register-button" href='https://forms.gle/5fPkhJ115cBfL5eo6'>
-                                    Register Now!
-                                </a>
-                            </ul>
-                        </nav>
+{/* <Header /> */}
+<header id="header">
+    <div className="container">
+        <nav id="nav-menu-container">
+            <ul className="nav-menu">
+                <li className="menu-active">
+                    {/* <strong> */}
+                    <a className="menu-active home" href="/index.html">Home</a>
+                    {/* </strong> */}
+                </li>
+                <li className="aboutAnchor">
+                    <a className='home' href="./about.html">About</a>
+                </li>
+                <li className="programAnchor">
+                    <a className='home' href="./program.html">Program</a>
+                </li>
+                <li className="speakersAnchor">
+                    <a className='home' href="./speakers.html">Speakers</a>
+                </li>
+                <a className="register-button" href='https://forms.gle/5fPkhJ115cBfL5eo6'>
+                    Register Now!
+                </a>
+            </ul>
+        </nav>
+                <div>
+                    <h2 style={{ marginLeft: "1em" }}>Jar of Expectations</h2>
+                    <p style={{ margin: "3em", marginTop: 0 }}>The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students. Attendees are encouraged to choose a ball that represents the expectation that they feel has most affected them, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.</p>
+                    <div className='options-box'>
+                        <h1 style={{ marginLeft: "1em", marginBottom: "0px" }}>Expectations</h1>
+                        <div className='ball-options'>
+                            <div className='options'>
+                                <h3>Family</h3>
+                                <div className='ball' id='red-marble' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
+                                    onClick={() => this.addBall("red")}
+                                />
+                            </div>
+                            <div className='options'>
+                                <h3>Friends</h3>
+                                <div className='ball' id='blue-marble' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
+                                    onClick={() => this.addBall("blue")}
+                                />
+                            </div>
+                            <div className='options'>
+                                <h3>Society</h3>
+                                <div className='ball' id='purple-marble' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
+                                    onClick={() => this.addBall("purple")}
+                                />
+                            </div>
+                            <div className='options'>
+                                <h3>Yourself</h3>
+                                <div className='ball' id='green-marble' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
+                                    onClick={() => this.addBall("green")}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </header>
                 {/* EXPECTATIONS JAR */}
