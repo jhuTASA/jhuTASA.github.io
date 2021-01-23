@@ -95,7 +95,7 @@ a {
 
 a:hover {
   text-decoration: none;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 .marginFormat {
@@ -991,10 +991,6 @@ Schedule Section
   -ms-flex-direction: column;
   flex-direction: column;
 }
-
-/* #schedule .schedule-item:hover {
-  background-color: #bad5da;
-} */
 
 #schedule .schedule-item time {
   display: inline-block;

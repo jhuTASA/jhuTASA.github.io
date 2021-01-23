@@ -162,27 +162,18 @@ class App extends Component {
                 {/* <Header /> */}
                 <header id="header">
                     <div className="container">
-                        <nav id="nav-menu-container">
-                            <ul className="nav-menu">
-                                <li className="menu-active">
-                                    {/* <strong> */}
-                                    <a className="menu-active home" href="/index.html">Home</a>
-                                    {/* </strong> */}
-                                </li>
-                                <li className="aboutAnchor">
-                                    <a className='home' href="./about.html">About</a>
-                                </li>
-                                <li className="programAnchor">
-                                    <a className='home' href="./program.html">Program</a>
-                                </li>
-                                <li className="speakersAnchor">
-                                    <a className='home' href="./speakers.html">Speakers</a>
-                                </li>
-                                <a className="register-button" href='https://forms.gle/5fPkhJ115cBfL5eo6'>
-                                    Register Now!
-                                </a>
-                            </ul>
-                        </nav>
+                        <div class="container">
+                            <nav id="nav-menu-container">
+                                <ul class="nav-menu">
+                                    <li class="homeAnchor"><a href="../index.html">Home</a></li>
+                                    <li class="programAnchor"><a href="about.html">About</a></li>
+                                    <li class="programAnchor"><a href="program.html">Program</a></li>
+                                    <li class="speakersAnchor"><a href="speakers.html">Speakers</a></li>
+                                    <li class="menu-active"><strong>Interactive</strong></li>
+                                    <a class="register-button" href='https://forms.gle/5fPkhJ115cBfL5eo6'>Register Now!</a>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </header>
 
@@ -236,7 +227,7 @@ class App extends Component {
                         <Grid container spacing={3} style={{ marginBottom: "30px" }}>
                             <Grid item xs={4}>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={7}>
                                 <div style={{
                                     float: "left",
                                     border: "3px solid black",
@@ -245,7 +236,7 @@ class App extends Component {
                                     borderTopLeftRadius: "0px",
                                     borderTopRightRadius: "0px",
                                     height: "400px",
-                                    width: "275px",
+                                    width: "375px",
                                 }}>
                                     <div style={{
                                         backgroundColor: "yellow",
@@ -263,7 +254,7 @@ class App extends Component {
                                     <h3>Yourself: {this.state.green}</h3>
                                 </div>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={1}>
                             </Grid>
                         </Grid>
                     </Container>

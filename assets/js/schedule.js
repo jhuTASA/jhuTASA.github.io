@@ -48,7 +48,7 @@ $(document).ready(() => {
 });
 
 $(function() {
-    let navTop = $('.nav-tabs').offset().top; 
+    let navTop = $('.day-title').offset().top - 200; 
 
     $(window).scroll(function() {
         let currentScroll = $(window).scrollTop() + 120; // get current position
