@@ -3,6 +3,7 @@ import '../assets/css/interactive.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import firebase from 'firebase';
 import db from '../firebase'
@@ -185,226 +186,253 @@ class App extends Component {
                     </div>
                 </header>
 
-                {/* EXPECTATIONS JAR */}
-                <div style={{ position: "relative", paddingTop: "calc(1vh + 60px)" }}>
-                    <h1 style={{ marginLeft: "2vw", color: "#265A26", fontSize: "2.5em", marginTop: "4%" }}>
-                        Jar of Expectations
+                <div style={{ position: "relative", paddingTop: "calc(1vh + 60px)", marginBottom: "50px" }}>
+
+                    {/* EXPECTATIONS JAR */}
+                    <Container maxWidth={'lg'}>
+                        <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>
+                            Jar of Expectations
                     </h1>
-                    <p style={{ margin: "3vw", marginTop: 0, marginBottom: 2 }}>
-                        The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
+                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                            The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
                     </p>
-                    <p style={{ margin: "3vw", marginTop: 0 }}>
-                        We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
+                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
                     </p>
-                    <Grid>
-                        <h2 style={{ marginLeft: "2vw", marginBottom: "0px" }}>Expectations</h2>
-                        <Grid item container xs={12}>
-                            <div className='ball-options'>
-                                <div className='options'>
-                                    <h3>Family</h3>
-                                    <div className='ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
-                                        onClick={() => this.addBall("red")}
-                                    />
+                        <Grid container spacing={3}>
+                            <h2 style={{ marginLeft: "4vw", marginBottom: "0px", fontSize: "calc(16px + 0.6em)" }}>Expectations</h2>
+                            <Grid item xs={12}>
+                                <div className='ball-options'>
+                                    <div className='options'>
+                                        <h3>Family</h3>
+                                        <div className='ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
+                                            onClick={() => this.addBall("red")}
+                                        />
+                                    </div>
+                                    <div className='options'>
+                                        <h3>Friends</h3>
+                                        <div className='ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
+                                            onClick={() => this.addBall("blue")}
+                                        />
+                                    </div>
+                                    <div className='options'>
+                                        <h3>Society</h3>
+                                        <div className='ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
+                                            onClick={() => this.addBall("purple")}
+                                        />
+                                    </div>
+                                    <div className='options'>
+                                        <h3>Yourself</h3>
+                                        <div className='ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
+                                            onClick={() => this.addBall("green")}
+                                        />
+                                    </div>
                                 </div>
-                                <div className='options'>
-                                    <h3>Friends</h3>
-                                    <div className='ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
-                                        onClick={() => this.addBall("blue")}
-                                    />
-                                </div>
-                                <div className='options'>
-                                    <h3>Society</h3>
-                                    <div className='ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
-                                        onClick={() => this.addBall("purple")}
-                                    />
-                                </div>
-                                <div className='options'>
-                                    <h3>Yourself</h3>
-                                    <div className='ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
-                                        onClick={() => this.addBall("green")}
-                                    />
-                                </div>
-                            </div>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <h2 style={{ marginLeft: "2vw", marginBottom: 5 }}>
-                        Our Jar
+                        <h2 style={{ marginLeft: "4vw", marginBottom: "0px", fontSize: "calc(16px + 0.6em)" }}>
+                            Our Jar
                         </h2>
-                    <Grid item container xs={12} style={{ marginBottom: "30px" }}>
-                        <Grid item container xs={6}>
-                            <div style={{
-                                float: "left",
-                                border: "3px solid black",
-                                borderRadius: "15px",
-                                borderTop: "none",
-                                borderTopLeftRadius: "0px",
-                                borderTopRightRadius: "0px",
-                                height: "400px",
-                                width: "270px",
-                            }}>
+                        <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+                            <Grid item xs={4}>
+                            </Grid>
+                            <Grid item xs={6}>
                                 <div style={{
-                                    backgroundColor: "yellow",
-                                    transform: 'scaleY(-1)',
-                                    position: 'relative',
-                                    top: '400px',
+                                    float: "left",
+                                    border: "3px solid black",
+                                    borderRadius: "15px",
+                                    borderTop: "none",
+                                    borderTopLeftRadius: "0px",
+                                    borderTopRightRadius: "0px",
+                                    height: "400px",
+                                    width: "275px",
                                 }}>
-                                    {this.state.displayBalls}
+                                    <div style={{
+                                        backgroundColor: "yellow",
+                                        transform: 'scaleY(-1)',
+                                        position: 'relative',
+                                        top: '400px',
+                                    }}>
+                                        {this.state.displayBalls}
+                                    </div>
                                 </div>
-                            </div>
-                            <div style={{ float: "left", marginLeft: "2em" }}>
-                                <h3>Family: {this.state.red}</h3>
-                                <h3>Friends: {this.state.blue}</h3>
-                                <h3>Society: {this.state.purple}</h3>
-                                <h3>Yourself: {this.state.green}</h3>
-                            </div>
+                                <div style={{ float: "left", marginLeft: "2em" }}>
+                                    <h3>Family: {this.state.red}</h3>
+                                    <h3>Friends: {this.state.blue}</h3>
+                                    <h3>Society: {this.state.purple}</h3>
+                                    <h3>Yourself: {this.state.green}</h3>
+                                </div>
+                            </Grid>
+                            <Grid item xs={2}>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Container>
 
                     <hr />
+
                     {/* SHARING OUR SUCCESSES */}
                     <div>
-                        <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>Sharing our Successes</h1>
-                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.2em)" }}>
-                            Share stories of success, traditional or nontraditional, of yourself or of others - let's celebrate each other’s successes!
+                        <Container maxWidth={'lg'}>
+                            <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>Sharing our Successes</h1>
+                            <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                                Share stories of success, traditional or nontraditional, of yourself or of others - let's celebrate each other’s successes!
                             </p>
-                        <div style={{
-                            border: "1px solid black",
-                            width: "90%",
-                            marginLeft: "1em",
-                            marginRight: "5%",
-                            borderRadius: "15px",
-                            height: "80vh",
-                            marginBottom: "3em",
-                        }}>
                             <div style={{
-                                backgroundColor: "rgb(112,168,97, 0.4)",
-                                width: "100%",
-                                height: "auto",
-                                borderTopLeftRadius: "15px",
-                                borderTopRightRadius: "15px",
-                                borderBottom: "1px solid #c4c4c4",
+                                border: "1px solid black",
+                                width: "95%",
+                                marginLeft: "1em",
+                                marginRight: "5%",
+                                borderRadius: "15px",
+                                height: "80vh",
+                                marginBottom: "3em",
                             }}>
-                                <Grid container xs={12}>
-                                    <Grid item xs={0} md={1} />
-                                    <Grid item md={3} s={4} xs={6}>
-                                        <TextField placeholder="Your name (optional)"
-                                            style={{
-                                                width: "90%",
-                                                backgroundColor: "white",
-                                                padding: "8px",
-                                                fontSize: "calc(16px + 0.2em)",
-                                                borderRadius: "5px",
-                                                border: "1px solid gray",
-                                                marginTop: "10px",
-                                                marginLeft: "1em",
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item md={5} s={7} xs={12}>
-                                        <TextField placeholder="Share a success!"
-                                            variant="standard"
-                                            multiline rows={3}
-                                            style={{
-                                                backgroundColor: "white",
-                                                margin: "10px",
-                                                marginLeft: "1em",
-                                                width: "60%",
-                                                padding: "8px",
-                                                fontSize: "calc(14px + 0.2em)",
-                                                borderRadius: "5px",
-                                                border: "1px solid gray",
-                                            }}
-                                        />
-                                        <Button variant="contained"
-                                            style={{
-                                                border: "1px solid #70A861",
-                                                borderRadius: "15px",
-                                                backgroundColor: "#70A861",
-                                                color: "white",
-                                                marginTop: "calc(1em + 5px)",
-                                                marginBottom: "1em",
-                                                padding: "8px",
-                                                fontSize: "16px",
-                                            }}>
-                                            <Typography variant="body1" style={{ color: "white" }}>
-                                                Share
+                                <div style={{
+                                    backgroundColor: "rgb(112,168,97, 0.4)",
+                                    width: "100%",
+                                    height: "auto",
+                                    borderTopLeftRadius: "15px",
+                                    borderTopRightRadius: "15px",
+                                    borderBottom: "1px solid #c4c4c4",
+                                }}>
+                                    <Grid container spacing={3}>
+                                        <Grid item xs={3}>
+                                            <TextField placeholder="Your name (optional)"
+                                                style={{
+                                                    width: "100%",
+                                                    backgroundColor: "white",
+                                                    padding: "8px",
+                                                    fontSize: "calc(16px + 0.2em)",
+                                                    borderRadius: "5px",
+                                                    border: "1px solid gray",
+                                                    marginTop: "10px",
+                                                    marginLeft: "1em",
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField placeholder="Share a success!"
+                                                variant="standard"
+                                                multiline rows={3}
+                                                style={{
+                                                    backgroundColor: "white",
+                                                    margin: "10px",
+                                                    marginLeft: "1em",
+                                                    width: "100%",
+                                                    padding: "8px",
+                                                    fontSize: "calc(14px + 0.2em)",
+                                                    borderRadius: "5px",
+                                                    border: "1px solid gray",
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={'auto'} />
+                                        <Grid item xs={2}>
+                                            <Button variant="contained"
+                                                style={{
+                                                    border: "1px solid #70A861",
+                                                    borderRadius: "15px",
+                                                    backgroundColor: "#70A861",
+                                                    color: "white",
+                                                    marginTop: "calc(1em + 5px)",
+                                                    marginBottom: "1em",
+                                                    padding: "8px",
+                                                    fontSize: "16px",
+                                                    width: '100%'
+                                                }}>
+                                                <Typography variant="body1" style={{ color: "white" }}>
+                                                    Share
                                         </Typography>
-                                        </Button>
+                                            </Button>
+                                        </Grid>
+                                        <Grid item xs={'auto'} />
                                     </Grid>
-                                </Grid>
+                                </div>
                             </div>
-                        </div>
+                        </Container>
                     </div>
                     <hr />
+
                     {/* WALL OF ENCOURAGEMENT */}
-                    <div>
-                        <h1 style={{ marginLeft: "2vw", color: "#265A26" }}>Wall of Encouragement</h1>
-                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.2em)" }}>
-                            Write a word of encouragement or a piece of advice that has stuck with you - let's learn from each other!
+                    <Container maxWidth={'lg'}>
+                        <div>
+                            <h1 style={{ marginLeft: "2vw", color: "#265A26" }}>Wall of Encouragement</h1>
+                            <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                                Write a word of encouragement or a piece of advice that has stuck with you - let's learn from each other!
                     </p>
-                        <div style={{
-                            border: "1px solid black",
-                            width: "90%",
-                            marginLeft: "1em",
-                            marginRight: "5%",
-                            borderRadius: "15px",
-                            height: "80vh",
-                        }}>
                             <div style={{
-                                backgroundColor: "rgb(112,168,97, 0.4)",
-                                width: "100%",
-                                height: "auto",
-                                borderTopLeftRadius: "15px",
-                                borderTopRightRadius: "15px",
-                                borderBottom: "1px solid #c4c4c4",
+                                border: "1px solid black",
+                                width: "95%",
+                                marginLeft: "1em",
+                                marginRight: "5%",
+                                borderRadius: "15px",
+                                height: "80vh",
                             }}>
-                                <TextField placeholder="Your name (optional)"
-                                    style={{
-                                        backgroundColor: "white",
-                                        padding: "8px",
-                                        fontSize: "calc(16px + 0.2em)",
-                                        borderRadius: "5px",
-                                        border: "1px solid gray",
-                                        margin: "10px",
-                                        marginTop: "1em",
-                                        marginLeft: "3em",
-                                    }}
-                                />
-                                <TextField placeholder="Share some encouragement!"
-                                    variant="standard"
-                                    multiline rows={3}
-                                    style={{
-                                        backgroundColor: "white",
-                                        margin: "10px",
-                                        marginTop: "1em",
-                                        marginLeft: "1em",
-                                        width: "20em",
-                                        padding: "8px",
-                                        fontSize: "calc(14px + 0.2em)",
-                                        borderRadius: "5px",
-                                        border: "1px solid gray",
-                                    }}
-                                />
-                                <Button variant="contained"
-                                    style={{
-                                        border: "1px solid #70A861",
-                                        borderRadius: "15px",
-                                        backgroundColor: "#70A861",
-                                        color: "white",
-                                        margin: "10px",
-                                        marginTop: "calc(1em + 5px)",
-                                        marginLeft: "calc(1em + 10px)",
-                                        padding: "8px",
-                                        fontSize: "16px",
-                                    }}>
-                                    <Typography variant="body1" style={{ color: "white" }}>
-                                        Share
-                                        </Typography>
-                                </Button>
+                                <div style={{
+                                    backgroundColor: "rgb(112,168,97, 0.4)",
+                                    width: "100%",
+                                    height: "auto",
+                                    borderTopLeftRadius: "15px",
+                                    borderTopRightRadius: "15px",
+                                    borderBottom: "1px solid #c4c4c4",
+                                }}>
+                                    <Grid container spacing={3}>
+                                        <Grid item xs={3}>
+                                            <TextField placeholder="Your name (optional)"
+                                                style={{
+                                                    width: "100%",
+                                                    backgroundColor: "white",
+                                                    padding: "8px",
+                                                    fontSize: "calc(16px + 0.2em)",
+                                                    borderRadius: "5px",
+                                                    border: "1px solid gray",
+                                                    marginTop: "10px",
+                                                    marginLeft: "1em",
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <TextField placeholder="Share some encouragement!"
+                                                variant="standard"
+                                                multiline rows={3}
+                                                style={{
+                                                    backgroundColor: "white",
+                                                    margin: "10px",
+                                                    marginLeft: "1em",
+                                                    width: "100%",
+                                                    padding: "8px",
+                                                    fontSize: "calc(14px + 0.2em)",
+                                                    borderRadius: "5px",
+                                                    border: "1px solid gray",
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={'auto'} />
+                                        <Grid item xs={2}>
+                                            <Button variant="contained"
+                                                style={{
+                                                    border: "1px solid #70A861",
+                                                    borderRadius: "15px",
+                                                    backgroundColor: "#70A861",
+                                                    color: "white",
+                                                    marginTop: "calc(1em + 5px)",
+                                                    marginBottom: "1em",
+                                                    padding: "8px",
+                                                    fontSize: "16px",
+                                                    width: '100%'
+                                                }}>
+                                                <Typography variant="body1" style={{ color: "white" }}>
+                                                    Share
+                                                </Typography>
+                                            </Button>
+                                        </Grid>
+                                        <Grid item xs={'auto'} />
+                                    </Grid>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Container>
                 </div>
+
             </div>
         );
     }

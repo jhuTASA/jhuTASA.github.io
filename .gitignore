@@ -3,5 +3,4 @@ npm
 *.cmd
 package-lock.json
 *.json
-node_modules/.bin/semver
-node_modules/.bin/webpack
+node_modules/@types/uglify-js/index.d.ts
