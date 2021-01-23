@@ -1,2 +1,7 @@
-
 node_modules/*
+npm
+*.cmd
+package-lock.json
+*.json
+node_modules/.bin/semver
+node_modules/.bin/webpack
