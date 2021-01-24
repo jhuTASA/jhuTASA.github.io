@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Success from './Success'
 import firebase from 'firebase';
 import db from '../firebase'
 
@@ -16,7 +17,10 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            jar: []
+            jar: [],
+            successes: [],
+            successMsg: "",
+            successUsername: "",
         }
         this.redCount = 0;
         this.blueCount = 0;
@@ -47,10 +51,8 @@ class App extends Component {
 
     addBall(color) {
         var totalCount = this.redCount + this.blueCount + this.greenCount + this.purpleCount;
-        console.log("COLOR", color);
         switch (color) {
             case "red":
-
                 this.redCount++;
                 if(totalCount > 240)
                     return <div className='jar-ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
@@ -122,6 +124,7 @@ class App extends Component {
 
     componentDidMount() {
         this.getBalls()
+        this.getSuccesses()
     }
 
     getBalls() {
@@ -147,6 +150,49 @@ class App extends Component {
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
+    }
+
+    getSuccesses() {
+        let currentComponent = this;
+        var successes = []
+        db.collection("successes").get()
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    successes.push(doc.data());
+                });
+                console.log(successes);
+                currentComponent.setState({
+                    successes: successes
+                })
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+            });
+    }
+
+    addSuccess() {
+        if (this.state.successMsg) {
+            if (this.state.successUsername) { 
+            db.collection("successes").add({
+                username: "Yo",
+                message: this.state.successMsg,
+                likes: 0,
+                time: new Date(),
+            })
+            .then(function (docRef) {
+                console.log("Ball written with ID: ", docRef.id);
+            })
+            .catch(function (error) {
+                console.error("Error adding ball: ", error);
+            });
+            this.getSuccesses();
+            }
+        }
+    }
+
+    updateSuccessMessage(event){
+        this.setState({
+            successMsg: event.target.value
+        })
     }
 
     render() {
@@ -287,6 +333,7 @@ class App extends Component {
                                         <Grid item xs={3}>
                                             <TextField placeholder="Your name (optional)"
                                                 style={{
+                                                    zIndex: 1,
                                                     width: "80%",
                                                     backgroundColor: "white",
                                                     padding: "8px",
@@ -303,6 +350,7 @@ class App extends Component {
                                                 variant="standard"
                                                 multiline rows={3}
                                                 style={{
+                                                    zIndex: "1",
                                                     backgroundColor: "white",
                                                     margin: "10px",
                                                     marginLeft: "1em",
@@ -312,6 +360,8 @@ class App extends Component {
                                                     borderRadius: "5px",
                                                     border: "1px solid gray",
                                                 }}
+                                                onChange={()=>updateSuccessMessage}
+                                                value={this.successMsg}
                                             />
                                         </Grid>
                                         <Grid item xs={'auto'} />
@@ -327,16 +377,29 @@ class App extends Component {
                                                     padding: "8px",
                                                     fontSize: "16px",
                                                     width: '100%'
-                                                }}>
+                                                }}
+                                                onClick={()=>this.addSuccess()}>
                                                 <Typography variant="body1" style={{ color: "white" }}>
                                                     Share
-                                        </Typography>
+                                                </Typography>
                                             </Button>
                                         </Grid>
-                                        <Grid item xs={'auto'} />
+                                        <Grid item xs={'auto'}>
+                                        </Grid>
                                     </Grid>
                                 </div>
+                            <div style={{overflowY: "scroll", height: "80%",}}>
+                                {this.state.successes.map(success =>
+                                    <Success 
+                                        message={success.message}
+                                        likes={success.likes}
+                                        time={success.time}
+                                        username={success.username} />
+                                )}
                             </div>
+                            
+                            </div>
+                            
                         </Container>
                     </div>
                     <hr />
