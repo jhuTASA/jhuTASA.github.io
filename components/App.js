@@ -18,21 +18,30 @@ class App extends Component {
         super(props);
         this.state = {
             jar: [],
+            ballsRendered: false,
             successes: [],
             successMsg: "",
             successUsername: "",
+            encouragements: [],
+            wallMsg: "",
+            wallUsername: "",
         }
         this.redCount = 0;
         this.blueCount = 0;
         this.greenCount = 0;
         this.purpleCount = 0;
         this.addBall = this.addBall.bind(this)
+        this.renderBalls = this.renderBalls.bind(this)
         this.expectationsDialog = false;
+        this.updateSuccessMsg = this.updateSuccessMsg.bind(this)
+        this.updateSuccessUsername = this.updateSuccessUsername.bind(this)
+        this.updateWallMsg = this.updateWallMsg.bind(this)
     }
 
 
     // RESTful add call to firebase
     add_ball(color) {
+        
         this.resetCounts();
         console.log(color);
         event.preventDefault();
@@ -50,6 +59,7 @@ class App extends Component {
     }
 
     addBall(color) {
+        console.log("Add Ball Call")
         var totalCount = this.redCount + this.blueCount + this.greenCount + this.purpleCount;
         switch (color) {
             case "red":
@@ -76,6 +86,27 @@ class App extends Component {
                     return <div className='jar-ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
                 return;
         }
+    }
+
+    renderBalls(jar) {
+        if (!this.state.ballsRendered) {
+            console.log("Balls RENDERED", this.state.ballsRendered);
+            return(
+                <div>
+                    {jar.map((value) => (this.addBall(value)))}
+                </div>
+            )
+        }
+        this.setState({ballsRendered: true})
+        return;
+        
+    }
+
+    componentDidMount() {
+        this.renderBalls(this.state.jar);
+        this.setState({
+            ballsRendered: true,
+        })
     }
 
     ballDialog(ball) {
@@ -123,8 +154,9 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.getBalls()
         this.getSuccesses()
+        this.getEncouragements()
+        this.getBalls()
     }
 
     getBalls() {
@@ -169,30 +201,114 @@ class App extends Component {
             });
     }
 
+    getEncouragements() {
+        let currentComponent = this;
+        var encouragements = []
+        db.collection("wall-of-encouragement").get()
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    encouragements.push(doc.data());
+                });
+                currentComponent.setState({
+                    encouragements: encouragements
+                })
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+            });
+    }
+
     addSuccess() {
         if (this.state.successMsg) {
             if (this.state.successUsername) { 
-            db.collection("successes").add({
-                username: "Yo",
-                message: this.state.successMsg,
-                likes: 0,
-                time: new Date(),
-            })
-            .then(function (docRef) {
-                console.log("Ball written with ID: ", docRef.id);
-            })
-            .catch(function (error) {
-                console.error("Error adding ball: ", error);
-            });
-            this.getSuccesses();
+                db.collection("successes").add({
+                    username: this.state.successUsername,
+                    message: this.state.successMsg,
+                    likes: 0,
+                    time: new Date(),
+                })
+                .then(function (docRef) {
+                    console.log("Success written with ID: ", docRef.id);
+                })
+                .catch(function (error) {
+                    console.error("Error adding Success: ", error);
+                });
+                this.getSuccesses();
+            } else {
+                db.collection("successes").add({
+                    username: "Anonymous",
+                    message: this.state.successMsg,
+                    likes: 0,
+                    time: new Date(),
+                })
+                .then(function (docRef) {
+                    console.log("Success written with ID: ", docRef.id);
+                })
+                .catch(function (error) {
+                    console.error("Error adding Success: ", error);
+                });
+                this.getSuccesses();
             }
+            this.setState({
+                successMsg: ""
+            })
+        } else {
+            // handle blank message
         }
     }
 
-    updateSuccessMessage(event){
+    addToWall() {
+        if (this.state.wallMsg) {
+            if (this.state.successUsername) { 
+                db.collection("wall-of-encouragement").add({
+                    username: this.state.successUsername,
+                    message: this.state.wallMsg,
+                    likes: 0,
+                    time: new Date(),
+                })
+                .then(function (docRef) {
+                    console.log("Encouragement written with ID: ", docRef.id);
+                })
+                .catch(function (error) {
+                    console.error("Error adding Encouragement: ", error);
+                });
+                this.getEncouragements();
+            } else {
+                db.collection("successes").add({
+                    username: "Anonymous",
+                    message: this.state.wallMsg,
+                    likes: 0,
+                    time: new Date(),
+                })
+                .then(function (docRef) {
+                    console.log("Encouragement written with ID: ", docRef.id);
+                })
+                .catch(function (error) {
+                    console.error("Error adding Encouragement: ", error);
+                });
+                this.getEncouragements();
+            }
+            this.setState({
+                wallMsg: ""
+            })
+        } else {
+            // handle blank message
+        }
+    }
+
+    updateSuccessUsername(event) {
         this.setState({
-            successMsg: event.target.value
+            successUsername: event.target.value
         })
+    }
+    updateSuccessMsg(event) {
+        this.setState({
+            successMsg: event.target.value,
+        });
+    }
+    updateWallMsg(event) {
+        this.setState({
+            wallMsg: event.target.value,
+        });
     }
 
     render() {
@@ -289,7 +405,7 @@ class App extends Component {
                                         paddingLeft: "0.5%",
                                         marginBottom: "1%",
                                     }}>
-                                        {this.state.jar.map((value) => (this.addBall(value)))}
+                                        {this.renderBalls(this.state.jar)}
                                     </div>
                                 </div>
                             </Grid>
@@ -321,6 +437,7 @@ class App extends Component {
                                 borderRadius: "15px",
                                 height: "80vh",
                                 marginBottom: "3em",
+                                zIndex: 1,
                             }}>
                                 <div style={{
                                     backgroundColor: "rgb(112,168,97, 0.4)",
@@ -343,6 +460,8 @@ class App extends Component {
                                                     marginTop: "10px",
                                                     marginLeft: "1em",
                                                 }}
+                                                onChange={this.updateSuccessUsername}
+                                                value={this.state.successUsername}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
@@ -360,8 +479,8 @@ class App extends Component {
                                                     borderRadius: "5px",
                                                     border: "1px solid gray",
                                                 }}
-                                                onChange={()=>updateSuccessMessage}
-                                                value={this.successMsg}
+                                                onChange={this.updateSuccessMsg}
+                                                value={this.state.successMsg}
                                             />
                                         </Grid>
                                         <Grid item xs={'auto'} />
@@ -376,7 +495,8 @@ class App extends Component {
                                                     marginBottom: "1em",
                                                     padding: "8px",
                                                     fontSize: "16px",
-                                                    width: '100%'
+                                                    width: '100%',
+                                                    zIndex: 1,
                                                 }}
                                                 onClick={()=>this.addSuccess()}>
                                                 <Typography variant="body1" style={{ color: "white" }}>
@@ -441,6 +561,8 @@ class App extends Component {
                                                     marginTop: "10px",
                                                     marginLeft: "1em",
                                                 }}
+                                                onChange={this.updateSuccessUsername}
+                                                value={this.state.successUsername}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
@@ -458,6 +580,8 @@ class App extends Component {
                                                     borderRadius: "5px",
                                                     border: "1px solid gray",
                                                 }}
+                                                onChange={this.updateWallMsg}
+                                                value={this.state.wallMsg}
                                             />
                                         </Grid>
                                         <Grid item xs={'auto'} />
@@ -475,13 +599,23 @@ class App extends Component {
                                                     fontSize: "16px",
                                                     width: '100%'
                                                 }}>
-                                                <Typography variant="body1" style={{ color: "white" }}>
+                                                <Typography variant="body1" style={{ color: "white" }}
+                                                    onClick={()=>this.addToWall()}>
                                                     Share
                                         </Typography>
                                             </Button>
                                         </Grid>
                                         <Grid item xs={'auto'} />
                                     </Grid>
+                                </div>
+                                <div style={{overflowY: "scroll", height: "80%",}}>
+                                {this.state.encouragements.map(encouragement =>
+                                    <Success 
+                                        message={encouragement.message}
+                                        likes={encouragement.likes}
+                                        time={encouragement.time}
+                                        username={encouragement.username} />
+                                    )}
                                 </div>
                             </div>
                         </div>

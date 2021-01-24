@@ -25,7 +25,7 @@ export default function Success(props) {
                     {message}
                 </Typography>
                 <Typography variant="body2">
-                    {likes}
+                    Likes: {likes}
                 </Typography>
             </Paper>
         </div>
