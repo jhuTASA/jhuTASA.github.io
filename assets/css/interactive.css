@@ -37,7 +37,44 @@
   background-position: center; 
   background-repeat: no-repeat;
   background-size: 35px;
-  transform: rotate(180deg);
+  transform: rotate(180deg); 
+}
+
+.animated {
+  background-repeat: no-repeat;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+     opacity: 0;
+     -webkit-transform: translateY(60px);
+  }
+  100% {
+     opacity: 1;
+     -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+     opacity: 0;
+     transform: translateY(100px);
+     /* -webkit-transform: rotate(180deg); */
+  }
+  100% {
+     opacity: 1;
+     transform: translateY(0);
+     -webkit-transform: rotate(180deg);
+  }
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
 }
 
 @media (max-width: 760px) {
@@ -50,3 +87,4 @@
   height: "100%";
   overflow-y: scroll;
 }
+

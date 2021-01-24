@@ -41,7 +41,6 @@ class App extends Component {
 
     // RESTful add call to firebase
     add_ball(color) {
-        
         this.resetCounts();
         console.log(color);
         event.preventDefault();
@@ -65,25 +64,25 @@ class App extends Component {
             case "red":
                 this.redCount++;
                 if(totalCount > 240)
-                    return <div className='jar-ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
+                    return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
                 return;
             case "blue":
 
                 this.blueCount++;
                 if(totalCount > 240)
-                    return <div className='jar-ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
+                    return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
                 return;
             case "purple":
 
                 this.purpleCount++;
                 if(totalCount > 240)
-                    return <div className='jar-ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
+                    return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
                 return;
             case "green":
 
                 this.greenCount++;
                 if(totalCount > 240)
-                    return <div className='jar-ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
+                    return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
                 return;
         }
     }
@@ -193,6 +192,10 @@ class App extends Component {
                     successes.push(doc.data());
                 });
                 console.log(successes);
+                // sort successes from most recent to oldest
+                successes.sort(function(a,b){
+                    return b.time - a.time;
+                });
                 currentComponent.setState({
                     successes: successes
                 })
@@ -209,6 +212,11 @@ class App extends Component {
                 querySnapshot.forEach(function (doc) {
                     encouragements.push(doc.data());
                 });
+                // sort encouragements from most recent to oldest
+                encouragements.sort(function(a,b){
+                    return b.time - a.time;
+                });
+                console.log(encouragements);
                 currentComponent.setState({
                     encouragements: encouragements
                 })
@@ -272,6 +280,7 @@ class App extends Component {
                     console.error("Error adding Encouragement: ", error);
                 });
                 this.getEncouragements();
+                console.log(this.state.encouragements);
             } else {
                 db.collection("successes").add({
                     username: "Anonymous",
@@ -351,25 +360,25 @@ class App extends Component {
                                 <div className='ball-options'>
                                     <div className='options'>
                                         <h3>Family</h3>
-                                        <div className='ball' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
+                                        <div className='ball' style={{ zIndex: 1, backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
                                             onClick={() => this.add_ball("red")}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Friends</h3>
-                                        <div className='ball' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
+                                        <div className='ball' style={{ zIndex: 1, backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
                                             onClick={() => this.add_ball("blue")}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Society</h3>
-                                        <div className='ball' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
+                                        <div className='ball' style={{ zIndex: 1, backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
                                             onClick={() => this.add_ball("purple")}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Yourself</h3>
-                                        <div className='ball' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
+                                        <div className='ball' style={{ zIndex: 1, backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
                                             onClick={() => this.add_ball("green")}
                                         />
                                     </div>
@@ -423,8 +432,8 @@ class App extends Component {
                     <hr />
 
                     {/* SHARING OUR SUCCESSES */}
-                    <div>
-                        <Container maxWidth={'lg'}>
+                    <div style={{zIndex: 1}}>
+                        <Container maxWidth={'lg'} style={{zIndex: 1,}}>
                             <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>Sharing our Successes</h1>
                             <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
                                 Share stories of success, traditional or nontraditional, of yourself or of others - let's celebrate each other’s successes!
