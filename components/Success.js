@@ -55,23 +55,23 @@ export default function Success(props) {
         });
     }
 
-    // function unlike() {
-    //     if(!liked) { return; }
-    //     setLikes(likes - 1);
-    //     db.runTransaction(function(transaction) {
-    //         return transaction.get(docRef).then(function(doc) {
-    //             if(!doc.exists) {
-    //                 throw "Does not exist!"
-    //             }
-    //             var newLikes = doc.data().likes - 1;
-    //             transaction.update(docRef, { likes: newLikes });
-    //         });
-    //     }).then(function() {
-    //         setLiked(false);
-    //     }).catch(function(error) {
-    //         console.log("Unlike failed");
-    //     });
-    // }
+    function unlike() {
+        if(!liked) { return; }
+        setLikes(likes - 1);
+        db.runTransaction(function(transaction) {
+            return transaction.get(docRef).then(function(doc) {
+                if(!doc.exists) {
+                    throw "Does not exist!"
+                }
+                var newLikes = doc.data().likes - 1;
+                transaction.update(docRef, { likes: newLikes });
+            });
+        }).then(function() {
+            setLiked(false);
+        }).catch(function(error) {
+            console.log("Unlike failed");
+        });
+    }
 
     return(
         <div style={{zIndex: 1,}}>
@@ -85,7 +85,7 @@ export default function Success(props) {
                 </Typography>
                 {/* <Button onClick={()=>like()}>Like</Button> */}
                 {(liked) ? 
-                    <FavoriteIcon 
+                    <FavoriteIcon onClick={()=>unlike()}
                         style={{color: "red", cursor: "pointer"}}
                     /> :
                      <FavoriteBorderIcon onClick={()=>like()}
