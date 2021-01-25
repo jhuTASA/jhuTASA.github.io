@@ -31,6 +31,7 @@ class App extends Component {
         this.greenCount = 0;
         this.purpleCount = 0;
         this.addBall = this.addBall.bind(this)
+        this.countBalls = this.countBalls.bind(this)
         this.renderBalls = this.renderBalls.bind(this)
         this.expectationsDialog = false;
         this.updateSuccessMsg = this.updateSuccessMsg.bind(this)
@@ -42,7 +43,6 @@ class App extends Component {
     // RESTful add call to firebase
     add_ball(color) {
         this.resetCounts();
-        console.log(color);
         event.preventDefault();
         db.collection("expectations-jar").add({
             color: color,
@@ -58,47 +58,64 @@ class App extends Component {
     }
 
     addBall(color) {
-        console.log("Add Ball Call")
         var totalCount = this.redCount + this.blueCount + this.greenCount + this.purpleCount;
         switch (color) {
             case "red":
-                this.redCount++;
-                if(totalCount > 240)
+                if(totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
                 return;
             case "blue":
-
-                this.blueCount++;
-                if(totalCount > 240)
+                if(totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
                 return;
             case "purple":
-
-                this.purpleCount++;
-                if(totalCount > 240)
+                if(totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
                 return;
             case "green":
-
-                this.greenCount++;
-                if(totalCount > 240)
+                if(totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
                 return;
         }
     }
 
     renderBalls(jar) {
-        if (!this.state.ballsRendered) {
-            console.log("Balls RENDERED", this.state.ballsRendered);
-            return(
-                <div>
-                    {jar.map((value) => (this.addBall(value)))}
-                </div>
-            )
+        if (jar.length !== 0) this.countBalls(jar);
+        return(
+            <div style={{backgroundColor: "red"}}>
+                {jar.map((value) => (this.addBall(value.color)))}
+            </div>
+        )
+    }
+
+    countBalls(jar) {
+        let currentComponent = this;
+        var red=0; 
+        var blue = 0; 
+        var purple = 0;
+        var green = 0;
+        for (var i = 0; i < jar.length; i++) {
+            switch(jar[i].color) {
+                case 'red':
+                    red++;
+                    break;
+                case 'blue':
+                    blue++;
+                    break;
+                case 'purple':
+                    purple++;
+                    break;
+                case 'green':
+                    green++;
+                    break;
+                default:
+                    break;
+            }
         }
-        this.setState({ballsRendered: true})
-        return;
-        
+        this.greenCount = green;
+        this.redCount = red;
+        this.blueCount = blue;
+        this.purpleCount = purple;
     }
 
     componentDidMount() {
@@ -163,13 +180,11 @@ class App extends Component {
         var balls = [];
         this.resetCounts();
 
-        db.collection("expectations-jar").get()
+        db.collection("expectations-jar").orderBy("time", "asc").get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    balls.push(doc.data().color);
+                    balls.push(doc.data());
                 });
-                console.log(balls);
-
                 //handle jar overflow: randomize array (will eventually only take the first 240 elements)
                 if (balls.length > 240) {
                     balls.sort(function() { return 0.5 - Math.random() });
@@ -227,35 +242,24 @@ class App extends Component {
 
     addSuccess() {
         if (this.state.successMsg) {
-            if (this.state.successUsername) { 
-                db.collection("successes").add({
-                    username: this.state.successUsername,
-                    message: this.state.successMsg,
-                    likes: 0,
-                    time: new Date(),
+            if (!this.state.successUsername) { 
+                this.setState({
+                    successUsername: "Anonymous"
                 })
-                .then(function (docRef) {
-                    console.log("Success written with ID: ", docRef.id);
-                })
-                .catch(function (error) {
-                    console.error("Error adding Success: ", error);
-                });
-                this.getSuccesses();
-            } else {
-                db.collection("successes").add({
-                    username: "Anonymous",
-                    message: this.state.successMsg,
-                    likes: 0,
-                    time: new Date(),
-                })
-                .then(function (docRef) {
-                    console.log("Success written with ID: ", docRef.id);
-                })
-                .catch(function (error) {
-                    console.error("Error adding Success: ", error);
-                });
-                this.getSuccesses();
-            }
+            } 
+            db.collection("successes").add({
+                username: this.state.successUsername,
+                message: this.state.successMsg,
+                likes: 0,
+                time: (new Date()).getTime(),
+            })
+            .then(function (docRef) {
+                console.log("Success written with ID: ", docRef.id);
+            })
+            .catch(function (error) {
+                console.error("Error adding Success: ", error);
+            });
+            this.getSuccesses();
             this.setState({
                 successMsg: ""
             })
