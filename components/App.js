@@ -526,14 +526,15 @@ class App extends Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                            <div style={{overflowY: "scroll", height: "80%",}}>
+                            <div style={{overflowY: "scroll", height: "80%", zIndex: 1,}}>
                                 {this.state.successes.map(success =>
                                     <Success 
                                         message={success.message}
                                         likes={success.likes}
                                         time={success.time}
                                         username={success.username}
-                                        uid={success.uid} />
+                                        uid={success.uid} 
+                                        type="success"/>
                                 )}
                             </div>
                             
@@ -635,6 +636,7 @@ class App extends Component {
                                         time={encouragement.time}
                                         username={encouragement.username} 
                                         uid={encouragement.uid}
+                                        type="encouragement"
                                         />
                                     )}
                                 </div>
