@@ -280,7 +280,7 @@ class App extends Component {
                     username: this.state.successUsername,
                     message: this.state.wallMsg,
                     likes: 0,
-                    time: new Date(),
+                    time: (new Date()).getTime(),
                 })
                 .then(function (docRef) {
                     console.log("Encouragement written with ID: ", docRef.id);
@@ -295,7 +295,7 @@ class App extends Component {
                     username: "Anonymous",
                     message: this.state.wallMsg,
                     likes: 0,
-                    time: new Date(),
+                    time: (new Date()).getTime(),
                 })
                 .then(function (docRef) {
                     console.log("Encouragement written with ID: ", docRef.id);
