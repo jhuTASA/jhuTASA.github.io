@@ -75,25 +75,31 @@ export default function Success(props) {
 
     return(
         <div style={{zIndex: 1,}}>
-            <Paper style={{margin: "0.5em", padding: "1em", height: 'auto', zIndex: 1,}}>
-                <Typography variant="body1" 
-                    style={{fontWeight: "bold"}}>
-                    {username} | {date}, {time}
-                </Typography>
-                <Typography variant="body1">
-                    {message}
-                </Typography>
-                {/* <Button onClick={()=>like()}>Like</Button> */}
-                {(liked) ? 
-                    <FavoriteIcon onClick={()=>unlike()}
-                        style={{color: "red", cursor: "pointer"}}
-                    /> :
-                     <FavoriteBorderIcon onClick={()=>like()}
-                        style={{cursor: "pointer"}}
-                />}
-                <Typography variant="body2">
-                    {likes}
-                </Typography>
+            <Paper style={{margin: "0.5em", padding: "1em", height: 'auto', zIndex: 1, position: "relative"}}>
+                <Grid item container>
+                    <Typography variant="body1" >
+                        <b>{username}</b> | {date}, {time}
+                    </Typography>
+                    <br />
+                    <Grid item container direction="row" alignItems="center" justify="flex-start">
+                        <Typography variant="body1">
+                            {message}
+                        </Typography>
+                        <div style={{display: "flex", flexDirection: "row", position: "absolute", right: "20px", top: "35%"}}>
+
+                            {(liked) ? 
+                                <FavoriteIcon onClick={()=>unlike()}
+                                    style={{color: "red", cursor: "pointer"}}
+                                /> :
+                                <FavoriteBorderIcon onClick={()=>like()}
+                                    style={{cursor: "pointer"}}
+                            />}
+                            <Typography variant="body2" style={{paddingLeft: "2px", alignItems: "center", marginTop: "2px"}}>
+                                {likes}
+                            </Typography>
+                        </div>
+                    </Grid>
+                </Grid>
             </Paper>
         </div>
     )
