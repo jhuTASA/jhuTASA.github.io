@@ -204,7 +204,9 @@ class App extends Component {
         db.collection("successes").get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    successes.push(doc.data());
+                    var data = doc.data();
+                    data['uid'] = doc.id;
+                    successes.push(data);
                 });
                 console.log(successes);
                 // sort successes from most recent to oldest
@@ -225,7 +227,10 @@ class App extends Component {
         db.collection("wall-of-encouragement").get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    encouragements.push(doc.data());
+                    var data = doc.data();
+                    data['uid'] = doc.id;
+                    encouragements.push(data);
+                    console.log(encouragements);
                 });
                 // sort encouragements from most recent to oldest
                 encouragements.sort(function(a,b){
@@ -527,7 +532,8 @@ class App extends Component {
                                         message={success.message}
                                         likes={success.likes}
                                         time={success.time}
-                                        username={success.username} />
+                                        username={success.username}
+                                        uid={success.uid} />
                                 )}
                             </div>
                             
@@ -627,7 +633,9 @@ class App extends Component {
                                         message={encouragement.message}
                                         likes={encouragement.likes}
                                         time={encouragement.time}
-                                        username={encouragement.username} />
+                                        username={encouragement.username} 
+                                        uid={encouragement.uid}
+                                        />
                                     )}
                                 </div>
                             </div>
