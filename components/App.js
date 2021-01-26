@@ -5,6 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Success from './Success'
 import firebase from 'firebase';
 import db from '../firebase'
@@ -21,6 +26,10 @@ class App extends Component {
             ballsRendered: false,
             successes: [],
             successMsg: "",
+            familyDialog: false,
+            friendsDialog: false,
+            societyDialog: false,
+            yourselfDialog: false,
             successUsername: "",
             encouragements: [],
             wallMsg: "",
@@ -353,6 +362,147 @@ class App extends Component {
                 <div style={{ position: "relative", paddingTop: "calc(1vh + 60px)", marginBottom: "50px" }}>
 
                     {/* EXPECTATIONS JAR */}
+                    <Dialog open={this.state.familyDialog} fullWidth maxWidth='sm'
+                        onClose={()=>this.setState({familyDialog: false})}>
+                        <DialogTitle>
+                            <div style={{display: "flex", flexDirection: "row"}}>
+                                <img src="../assets/img/family.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
+                                <Typography style={{fontSize: "2em"}}>
+                                    Family
+                                </Typography>
+                            </div>
+                        </DialogTitle>
+
+                        <DialogContent>
+                            <Grid container xs={12}>
+                                <Grid item xs={5}>
+                                    <img src="../assets/img/family_bg.png"  className="dialog_img"/>                                
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography float="right" variant="body1">
+                                        Family is important!
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="outlined" onClick={()=>this.setState({familyDialog: false})}>
+                                Look at others
+                            </Button>
+                            <Button variant="outlined"
+                                onClick={()=>{
+                                    this.setState({familyDialog: false}); 
+                                    this.add_ball("red");
+                                }}>
+                                Choose marble
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog open={this.state.friendsDialog} fullWidth maxWidth='sm'
+                        onClose={()=>this.setState({friendsDialog: false})}>
+                        <DialogTitle>
+                            <div style={{display: "flex", flexDirection: "row"}}>
+                                <img src="../assets/img/friend.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
+                                <Typography style={{fontSize: "2em"}}>
+                                    Friends
+                                </Typography>
+                            </div>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Grid container xs={12}>
+                                <Grid item xs={5}>
+                                    <img src="../assets/img/friends_bg.png"  className="dialog_img"/>                                
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography float="right" variant="body1">
+                                        Friends are important!
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="outlined" onClick={()=>this.setState({friendsDialog: false})}>
+                                Look at others
+                            </Button>
+                            <Button variant="outlined"
+                                onClick={()=>{
+                                    this.setState({friendsDialog: false}); 
+                                    this.add_ball("blue");
+                                }}>
+                                Choose marble
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog open={this.state.societyDialog} fullWidth maxWidth='sm'
+                        onClose={()=>this.setState({societyDialog: false})}>
+                        <DialogTitle>
+                            <div style={{display: "flex", flexDirection: "row"}}>
+                                <img src="../assets/img/society.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
+                                <Typography style={{fontSize: "2em"}}>
+                                    Society
+                                </Typography>
+                            </div>
+                        </DialogTitle>
+                        <DialogContent>
+                        <Grid container xs={12}>
+                            <Grid item xs={5}>
+                                <img src="../assets/img/society_bg.png"  className="dialog_img"/>
+                            </Grid>
+                            <Grid item xs={7}>
+                                <Typography float="right" variant="body1">
+                                    Society is important!
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="outlined" onClick={()=>this.setState({societyDialog: false})}>
+                                Look at others
+                            </Button>
+                            <Button variant="outlined"
+                                onClick={()=>{
+                                    this.setState({societyDialog: false}); 
+                                    this.add_ball("purple");
+                                }}>
+                                Choose marble
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                    <Dialog open={this.state.yourselfDialog} fullWidth maxWidth='sm'
+                        onClose={()=>this.setState({yourselfDialog: false})}>
+                        <DialogTitle>
+                            <div style={{display: "flex", flexDirection: "row"}}>
+                                <img src="../assets/img/yourself.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
+                                <Typography style={{fontSize: "2em"}}>
+                                    Yourself
+                                </Typography>
+                            </div>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Grid container xs={12}>
+                                <Grid item xs={5}>
+                                    <img src="../assets/img/yourself_bg.png"  className="dialog_img"/>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography float="right" variant="body1">
+                                        [some blurb here]
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="outlined" onClick={()=>this.setState({yourselfDialog: false})}>
+                                Look at others
+                            </Button>
+                            <Button variant="outlined"
+                                onClick={()=>{
+                                    this.setState({yourselfDialog: false}); 
+                                    this.add_ball("green");
+                                }}>
+                                Choose marble
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                     <Container maxWidth={'lg'}>
                         <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>
                             Jar of Expectations
@@ -370,25 +520,25 @@ class App extends Component {
                                     <div className='options'>
                                         <h3>Family</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
-                                            onClick={() => this.add_ball("red")}
+                                            onClick={()=>this.setState({familyDialog: true})}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Friends</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
-                                            onClick={() => this.add_ball("blue")}
+                                            onClick={()=>this.setState({friendsDialog: true})}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Society</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
-                                            onClick={() => this.add_ball("purple")}
+                                            onClick={()=>this.setState({societyDialog: true})}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Yourself</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
-                                            onClick={() => this.add_ball("green")}
+                                            onClick={()=>this.setState({yourselfDialog: true})}
                                         />
                                     </div>
                                 </div>
