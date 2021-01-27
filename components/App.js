@@ -359,7 +359,7 @@ class App extends Component {
                     </div>
                 </header>
 
-                <div style={{ position: "relative", paddingTop: "calc(1vh + 60px)", marginBottom: "50px" }}>
+                <div style={{ position: "relative", paddingTop: "calc(1vh + 60px)", marginBottom: "50px", zIndex: 3}}>
 
                     {/* EXPECTATIONS JAR */}
                     <Dialog open={this.state.familyDialog} fullWidth maxWidth='sm'

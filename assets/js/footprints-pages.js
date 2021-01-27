@@ -1,7 +1,7 @@
 var i = 0;
 var x = 0;
 var y = 0;
-var dis = 100;
+var dis = 200;
 
 function update(e, deg){
     $('body').append("<img class='footprints" + i + "' src='../assets/img/footprints.png'></img>");
