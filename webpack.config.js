@@ -6,7 +6,6 @@ module.exports = {
    output: {
       path: path.join(__dirname, '/pages'),
       filename: 'index_bundle.js',
-      publicPath: '/interactive'
    },
    devServer: {
       inline: true,
