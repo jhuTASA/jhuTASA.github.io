@@ -1,0 +1,9 @@
+node_modules/*
+npm
+*.cmd
+package-lock.json
+*.json
+node_modules/@types/uglify-js/index.d.ts
+*/node_modules/*
+*/node_modules
+**/node_modules
