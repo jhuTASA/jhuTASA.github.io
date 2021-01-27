@@ -4,8 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
    entry: './main.js',
    output: {
-      path: path.join(__dirname, '/interactive'),
-      filename: 'index_bundle.js'
+      path: path.join(__dirname, '/pages'),
+      filename: 'index_bundle.js',
+      publicPath: '/interactive'
    },
    devServer: {
       inline: true,
@@ -32,7 +33,7 @@ module.exports = {
    },
    plugins:[
       new HtmlWebpackPlugin({
-         template: './pages/interactive.html'
+         template: '/pages/interactive.html'
       })
    ]
 }
