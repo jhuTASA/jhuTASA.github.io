@@ -718,7 +718,8 @@ Main
 }
 
 .sponsor-blocks>p>span {
-  color: #265A26;
+  color:  white;
+  font-weight: bold;
 }
 
 .donate-button {
