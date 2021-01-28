@@ -674,10 +674,8 @@ Main
 /* Sponsors in Main */
 #sponsors {
   background-color: #70A861;
-  ;
   padding: 20px 10px;
   opacity: 1;
-  /* display: none; */
 }
 
 #sponsors h2 {
@@ -715,6 +713,7 @@ Main
 .sponsor-blocks>p {
   color: white;
   padding: 0 30px;
+  text-align: center;
 }
 
 .sponsor-blocks>p>span {
@@ -763,7 +762,7 @@ Main
 About Section
 ----------------------------------------------------------------*/
 .about {
-  margin: 0 10%;
+  padding: 0 60px 60px 60px;
 }
 
 .about .section-container,
@@ -787,7 +786,7 @@ About Section
 
 .about .sub-container {
   padding: 10px 30px;
-  margin: 0 50px;
+  margin: 0 0 0 50px;
   margin-top: 50px;
   border-left: 3px solid #86B1BA;
   opacity: 0;
@@ -805,6 +804,10 @@ About Section
   }
   .mobile-hide {
     display: none;
+  }
+
+  .about {
+    padding: 0 15px 60px 15px;
   }
 }
 
