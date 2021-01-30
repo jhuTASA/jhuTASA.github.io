@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, setInterval } from 'react';
 import '../assets/css/interactive.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -51,6 +51,7 @@ class App extends Component {
 
     // RESTful add call to firebase
     add_ball(color) {
+        console.log("ADDING HERE", color);
         this.resetCounts();
         event.preventDefault();
         db.collection("expectations-jar").add({
@@ -182,6 +183,14 @@ class App extends Component {
         this.getSuccesses()
         this.getEncouragements()
         this.getBalls()
+        try {
+            setInterval(async() => {
+                console.log("API CALL")
+                getBalls();
+            }, 30)
+        } catch(e) {
+            console.log(e);
+        }
     }
 
     getBalls() {
@@ -561,7 +570,7 @@ class App extends Component {
                                     borderTopRightRadius: "0px",
                                     marginTop: "10vh",
                                     position: "relative",
-                                    height: "130%",
+                                    height: "50vh",
                                     width: "100%",
                                 }}>
                                     <div style={{
