@@ -1,4 +1,4 @@
-import React, { Component, setInterval } from 'react';
+import React, { Component } from 'react';
 import '../assets/css/interactive.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -26,6 +26,7 @@ class App extends Component {
             ballsRendered: false,
             successes: [],
             successMsg: "",
+            ballLimitDialog: false,
             familyDialog: false,
             friendsDialog: false,
             societyDialog: false,
@@ -42,7 +43,7 @@ class App extends Component {
         this.addBall = this.addBall.bind(this)
         this.countBalls = this.countBalls.bind(this)
         this.renderBalls = this.renderBalls.bind(this)
-        this.expectationsDialog = false;
+        this.expectationsDialog = false
         this.updateSuccessMsg = this.updateSuccessMsg.bind(this)
         this.updateSuccessUsername = this.updateSuccessUsername.bind(this)
         this.updateWallMsg = this.updateWallMsg.bind(this)
@@ -51,6 +52,21 @@ class App extends Component {
 
     // RESTful add call to firebase
     add_ball(color) {
+        if (localStorage.getItem("ballCount") === null) {
+            localStorage.setItem("ballCount", 1)
+        } else {
+            if (localStorage.getItem("ballCount") == 2) {
+                localStorage.setItem("ballCount", 2);
+                this.setState({ ballLimitDialog: true })
+                return;
+            } else if (localStorage.getItem("ballCount") == 1) {
+                localStorage.setItem("ballCount", 2)
+            } else if (localStorage.getItem("ballCount") == 0) {
+                localStorage.setItem("ballCount", 1)
+            } 
+        }
+        
+        
         console.log("ADDING HERE", color);
         this.resetCounts();
         event.preventDefault();
@@ -64,7 +80,7 @@ class App extends Component {
             .catch(function (error) {
                 console.error("Error adding ball: ", error);
             });
-            this.getBalls()
+        this.getBalls()
     }
 
     addBall(color) {
@@ -183,14 +199,6 @@ class App extends Component {
         this.getSuccesses()
         this.getEncouragements()
         this.getBalls()
-        try {
-            setInterval(async() => {
-                console.log("API CALL")
-                getBalls();
-            }, 30)
-        } catch(e) {
-            console.log(e);
-        }
     }
 
     getBalls() {
@@ -207,13 +215,34 @@ class App extends Component {
                 if (balls.length > 240) {
                     balls.sort(function() { return 0.5 - Math.random() });
                 }
-
+                console.log("Balls gotten", balls);
                 currentComponent.setState({
                     jar: balls
                 })
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
+        window.setInterval(function() {
+            db.collection("expectations-jar").orderBy("time", "asc").get()
+            .then(function (querySnapshot) {
+                var newBalls = []
+                querySnapshot.forEach(function (doc) {
+                    newBalls.push(doc.data());
+                });
+                if (newBalls !== balls) {
+                    balls = newBalls;
+                    currentComponent.setState({
+                        jar: newBalls
+                    })
+                }
+                //handle jar overflow: randomize array (will eventually only take the first 240 elements)
+                if (newBalls.length > 240) {
+                    newBalls.sort(function() { return 0.5 - Math.random() });
+                }
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+            });
+        }, 5000);
     }
 
     getSuccesses() {
@@ -236,7 +265,29 @@ class App extends Component {
                 })
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
-            });
+        });
+        window.setInterval(function() {
+            db.collection("successes").get()
+            .then(function (querySnapshot) {
+                var newSuccesses = []
+                querySnapshot.forEach(function (doc) {
+                    var data = doc.data();
+                    data['uid'] = doc.id;
+                    newSuccesses.push(data);
+                });
+                // sort successes from most recent to oldest
+                newSuccesses.sort(function(a,b){
+                    return b.time - a.time;
+                });
+                if (newSuccesses !== successes) {
+                    currentComponent.setState({
+                        successes: newSuccesses
+                    })
+                }
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+        });
+        }, [5000])
     }
 
     getEncouragements() {
@@ -261,6 +312,29 @@ class App extends Component {
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
+
+        window.setInterval(function() {
+            db.collection("wall-of-encouragement").get()
+            .then(function (querySnapshot) {
+                var newEncouragements = []
+                querySnapshot.forEach(function (doc) {
+                    var data = doc.data();
+                    data['uid'] = doc.id;
+                    newEncouragements.push(data);
+                });
+                // sort successes from most recent to oldest
+                newEncouragements.sort(function(a,b){
+                    return b.time - a.time;
+                });
+                if (newEncouragements !== encouragements) {
+                    currentComponent.setState({
+                        encouragements: newEncouragements
+                    })
+                }
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+        });
+        }, [5000])
     }
 
     addSuccess() {
@@ -350,6 +424,19 @@ class App extends Component {
     render() {
         return (
             <div className='interactive'>
+                <Dialog open={this.state.ballLimitDialog} fullWidth maxWidth='sm'
+                    onClose={()=>this.setState({ballLimitDialog: false})}>
+                    <DialogTitle>
+                        <Typography style={{fontSize: "1.5em"}}>
+                            You're out of balls 😔
+                        </Typography>
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button variant="outlined" onClick={()=>this.setState({ballLimitDialog: false})}>
+                            Ok whatever
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 {/* <Header /> */}
                 <header id="header">
                     <div className="container">
@@ -376,7 +463,7 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/family.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
                                     Family
                                 </Typography>
                             </div>
@@ -395,6 +482,9 @@ class App extends Component {
                             </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({familyDialog: false})}>
                                 Look at others
                             </Button>
@@ -412,7 +502,7 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/friend.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
                                     Friends
                                 </Typography>
                             </div>
@@ -430,6 +520,9 @@ class App extends Component {
                             </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({friendsDialog: false})}>
                                 Look at others
                             </Button>
@@ -447,8 +540,8 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/society.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
-                                    Society
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
+                                    Society 
                                 </Typography>
                             </div>
                         </DialogTitle>
@@ -465,6 +558,9 @@ class App extends Component {
                         </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({societyDialog: false})}>
                                 Look at others
                             </Button>
@@ -482,7 +578,7 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/yourself.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
                                     Yourself
                                 </Typography>
                             </div>
@@ -500,6 +596,9 @@ class App extends Component {
                             </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({yourselfDialog: false})}>
                                 Look at others
                             </Button>
@@ -513,17 +612,17 @@ class App extends Component {
                         </DialogActions>
                     </Dialog>
                     <Container maxWidth={'lg'}>
-                        <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>
+                        <h1 style={{ marginLeft: "1rem", color: "#265A26",}}>
                             Jar of Expectations
-                    </h1>
-                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                        </h1>
+                        <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                             The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
-                    </p>
-                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
-                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
-                    </p>
+                        </p>
+                        <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
+                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations. (2 choices per person)
+                        </p>
                         <Grid container spacing={3}>
-                            <h2 style={{ marginLeft: "4vw", marginBottom: "0px", fontSize: "calc(16px + 0.6em)" }}>Expectations</h2>
+                            <h2 style={{ marginLeft: "2rem", marginBottom: "0px", fontSize: "1.5rem" }}>Expectations</h2>
                             <Grid item xs={12}>
                                 <div className='ball-options'>
                                     <div className='options'>
@@ -553,13 +652,13 @@ class App extends Component {
                                 </div>
                             </Grid>
                         </Grid>
-                        <h2 style={{ marginLeft: "3vw", marginBottom: "0px", fontSize: "calc(18px + 0.6em)" }}>
+                        <h2 style={{ marginLeft: "2rem", marginBottom: "0px", fontSize: "1.5rem" }}>
                             Our Jar
                         </h2>
-                        <Grid container spacing={3} style={{ marginBottom: "25vh" }}>
+                        <Grid container spacing={3} style={{ marginBottom: "0" }}>
                             <Grid item md={2} xs={0}>
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={11} md={8}>
                                 <div style={{
                                     zIndex: 1,
                                     float: "left",
@@ -586,7 +685,7 @@ class App extends Component {
                                     </div>
                                 </div>
                             </Grid>
-                            <Grid item md={2} xs={4}>
+                            <Grid item md={2} xs={12}>
                                 <div style={{ float: "left", marginLeft: "1%", marginTop: '10vh'}}>
                                     <h3>Family: {this.redCount}</h3>
                                     <h3>Friends: {this.blueCount}</h3>
@@ -602,17 +701,17 @@ class App extends Component {
                     {/* SHARING OUR SUCCESSES */}
                     <div style={{zIndex: 1}}>
                         <Container maxWidth={'lg'} style={{zIndex: 1,}}>
-                            <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>Sharing our Successes</h1>
-                            <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                            <h1 style={{ marginLeft: "1rem", color: "#265A26", }}>Sharing our Successes</h1>
+                            <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                                 Share stories of success, traditional or nontraditional, of yourself or of others - let's celebrate each other’s successes!
                             </p>
                             <div style={{
                                 border: "1px solid black",
                                 width: "95%",
-                                marginLeft: "1em",
+                                marginLeft: "1rem",
                                 marginRight: "5%",
                                 borderRadius: "15px",
-                                height: "80vh",
+                                height: "100%",
                                 marginBottom: "3em",
                                 zIndex: 1,
                             }}>
@@ -624,7 +723,7 @@ class App extends Component {
                                     borderBottom: "1px solid #c4c4c4",
                                 }}>
                                     <Grid container>
-                                        <Grid item xs={3}>
+                                        <Grid item xs={6} sm={3}>
                                             <TextField placeholder="Your name (optional)"
                                                 style={{
                                                     zIndex: 1,
@@ -635,13 +734,13 @@ class App extends Component {
                                                     borderRadius: "5px",
                                                     border: "1px solid gray",
                                                     marginTop: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                 }}
                                                 onChange={this.updateSuccessUsername}
                                                 value={this.state.successUsername}
                                             />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={9} sm={6}>
                                             <TextField placeholder="Share a success!"
                                                 variant="standard"
                                                 multiline rows={3}
@@ -649,7 +748,7 @@ class App extends Component {
                                                     zIndex: "1",
                                                     backgroundColor: "white",
                                                     margin: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                     width: "80%",
                                                     padding: "8px",
                                                     fontSize: "calc(14px + 0.2em)",
@@ -685,7 +784,7 @@ class App extends Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                            <div style={{overflowY: "scroll", height: "80%", zIndex: 1,}}>
+                            <div style={{overflowY: "scroll", height: "60vh", zIndex: 1,}}>
                                 {this.state.successes.map(success =>
                                     <Success 
                                         message={success.message}
@@ -706,17 +805,17 @@ class App extends Component {
                     {/* WALL OF ENCOURAGEMENT */}
                     <Container maxWidth={'lg'}>
                         <div>
-                            <h1 style={{ marginLeft: "2vw", color: "#265A26" }}>Wall of Encouragement</h1>
-                            <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                            <h1 style={{ marginLeft: "1rem", color: "#265A26" }}>Wall of Encouragement</h1>
+                            <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                                 Write a word of encouragement or a piece of advice that has stuck with you - let's learn from each other!
                     </p>
                             <div style={{
                                 border: "1px solid black",
                                 width: "95%",
-                                marginLeft: "1em",
+                                marginLeft: "1rem",
                                 marginRight: "5%",
                                 borderRadius: "15px",
-                                height: "80vh",
+                                height: "140%",
                             }}>
                                 <div style={{
                                     backgroundColor: "rgb(112,168,97, 0.4)",
@@ -727,7 +826,7 @@ class App extends Component {
                                     borderBottom: "1px solid #c4c4c4",
                                 }}>
                                     <Grid container>
-                                        <Grid item xs={3}>
+                                        <Grid item xs={6} sm={3}>
                                             <TextField placeholder="Your name (optional)"
                                                 style={{
                                                     zIndex: 1,
@@ -738,13 +837,13 @@ class App extends Component {
                                                     borderRadius: "5px",
                                                     border: "1px solid gray",
                                                     marginTop: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                 }}
                                                 onChange={this.updateSuccessUsername}
                                                 value={this.state.successUsername}
                                             />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={9} sm={6}>
                                             <TextField placeholder="Share some encouragement!"
                                                 variant="standard"
                                                 multiline rows={3}
@@ -752,7 +851,7 @@ class App extends Component {
                                                     zIndex: 1,
                                                     backgroundColor: "white",
                                                     margin: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                     width: "80%",
                                                     padding: "8px",
                                                     fontSize: "calc(14px + 0.2em)",
@@ -787,7 +886,7 @@ class App extends Component {
                                         <Grid item xs={'auto'} />
                                     </Grid>
                                 </div>
-                                <div style={{overflowY: "scroll", height: "80%",}}>
+                                <div style={{overflowY: "scroll", height: "60vh",}}>
                                 {this.state.encouragements.map(encouragement =>
                                     <Success 
                                         message={encouragement.message}
