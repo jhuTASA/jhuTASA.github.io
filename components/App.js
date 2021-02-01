@@ -571,17 +571,17 @@ class App extends Component {
                         </DialogActions>
                     </Dialog>
                     <Container maxWidth={'lg'}>
-                        <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>
+                        <h1 style={{ marginLeft: "1rem", color: "#265A26",}}>
                             Jar of Expectations
-                    </h1>
-                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                        </h1>
+                        <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                             The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
-                    </p>
-                        <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                        </p>
+                        <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                             We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
-                    </p>
+                        </p>
                         <Grid container spacing={3}>
-                            <h2 style={{ marginLeft: "4vw", marginBottom: "0px", fontSize: "calc(16px + 0.6em)" }}>Expectations</h2>
+                            <h2 style={{ marginLeft: "2rem", marginBottom: "0px", fontSize: "1.5rem" }}>Expectations</h2>
                             <Grid item xs={12}>
                                 <div className='ball-options'>
                                     <div className='options'>
@@ -611,13 +611,13 @@ class App extends Component {
                                 </div>
                             </Grid>
                         </Grid>
-                        <h2 style={{ marginLeft: "3vw", marginBottom: "0px", fontSize: "calc(18px + 0.6em)" }}>
+                        <h2 style={{ marginLeft: "2rem", marginBottom: "0px", fontSize: "1.5rem" }}>
                             Our Jar
                         </h2>
-                        <Grid container spacing={3} style={{ marginBottom: "25vh" }}>
+                        <Grid container spacing={3} style={{ marginBottom: "0" }}>
                             <Grid item md={2} xs={0}>
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={11} md={8}>
                                 <div style={{
                                     zIndex: 1,
                                     float: "left",
@@ -644,7 +644,7 @@ class App extends Component {
                                     </div>
                                 </div>
                             </Grid>
-                            <Grid item md={2} xs={4}>
+                            <Grid item md={2} xs={12}>
                                 <div style={{ float: "left", marginLeft: "1%", marginTop: '10vh'}}>
                                     <h3>Family: {this.redCount}</h3>
                                     <h3>Friends: {this.blueCount}</h3>
@@ -660,17 +660,17 @@ class App extends Component {
                     {/* SHARING OUR SUCCESSES */}
                     <div style={{zIndex: 1}}>
                         <Container maxWidth={'lg'} style={{zIndex: 1,}}>
-                            <h1 style={{ marginLeft: "2vw", color: "#265A26", }}>Sharing our Successes</h1>
-                            <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                            <h1 style={{ marginLeft: "1rem", color: "#265A26", }}>Sharing our Successes</h1>
+                            <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                                 Share stories of success, traditional or nontraditional, of yourself or of others - let's celebrate each other’s successes!
                             </p>
                             <div style={{
                                 border: "1px solid black",
                                 width: "95%",
-                                marginLeft: "1em",
+                                marginLeft: "1rem",
                                 marginRight: "5%",
                                 borderRadius: "15px",
-                                height: "80vh",
+                                height: "100%",
                                 marginBottom: "3em",
                                 zIndex: 1,
                             }}>
@@ -682,7 +682,7 @@ class App extends Component {
                                     borderBottom: "1px solid #c4c4c4",
                                 }}>
                                     <Grid container>
-                                        <Grid item xs={3}>
+                                        <Grid item xs={6} sm={3}>
                                             <TextField placeholder="Your name (optional)"
                                                 style={{
                                                     zIndex: 1,
@@ -693,13 +693,13 @@ class App extends Component {
                                                     borderRadius: "5px",
                                                     border: "1px solid gray",
                                                     marginTop: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                 }}
                                                 onChange={this.updateSuccessUsername}
                                                 value={this.state.successUsername}
                                             />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={9} sm={6}>
                                             <TextField placeholder="Share a success!"
                                                 variant="standard"
                                                 multiline rows={3}
@@ -707,7 +707,7 @@ class App extends Component {
                                                     zIndex: "1",
                                                     backgroundColor: "white",
                                                     margin: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                     width: "80%",
                                                     padding: "8px",
                                                     fontSize: "calc(14px + 0.2em)",
@@ -743,7 +743,7 @@ class App extends Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                            <div style={{overflowY: "scroll", height: "80%", zIndex: 1,}}>
+                            <div style={{overflowY: "scroll", height: "60vh", zIndex: 1,}}>
                                 {this.state.successes.map(success =>
                                     <Success 
                                         message={success.message}
@@ -764,17 +764,17 @@ class App extends Component {
                     {/* WALL OF ENCOURAGEMENT */}
                     <Container maxWidth={'lg'}>
                         <div>
-                            <h1 style={{ marginLeft: "2vw", color: "#265A26" }}>Wall of Encouragement</h1>
-                            <p style={{ marginLeft: "3vw", fontSize: "calc(16px + 0.1em)" }}>
+                            <h1 style={{ marginLeft: "1rem", color: "#265A26" }}>Wall of Encouragement</h1>
+                            <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                                 Write a word of encouragement or a piece of advice that has stuck with you - let's learn from each other!
                     </p>
                             <div style={{
                                 border: "1px solid black",
                                 width: "95%",
-                                marginLeft: "1em",
+                                marginLeft: "1rem",
                                 marginRight: "5%",
                                 borderRadius: "15px",
-                                height: "80vh",
+                                height: "140%",
                             }}>
                                 <div style={{
                                     backgroundColor: "rgb(112,168,97, 0.4)",
@@ -785,7 +785,7 @@ class App extends Component {
                                     borderBottom: "1px solid #c4c4c4",
                                 }}>
                                     <Grid container>
-                                        <Grid item xs={3}>
+                                        <Grid item xs={6} sm={3}>
                                             <TextField placeholder="Your name (optional)"
                                                 style={{
                                                     zIndex: 1,
@@ -796,13 +796,13 @@ class App extends Component {
                                                     borderRadius: "5px",
                                                     border: "1px solid gray",
                                                     marginTop: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                 }}
                                                 onChange={this.updateSuccessUsername}
                                                 value={this.state.successUsername}
                                             />
                                         </Grid>
-                                        <Grid item xs={6}>
+                                        <Grid item xs={9} sm={6}>
                                             <TextField placeholder="Share some encouragement!"
                                                 variant="standard"
                                                 multiline rows={3}
@@ -810,7 +810,7 @@ class App extends Component {
                                                     zIndex: 1,
                                                     backgroundColor: "white",
                                                     margin: "10px",
-                                                    marginLeft: "1em",
+                                                    marginLeft: "1rem",
                                                     width: "80%",
                                                     padding: "8px",
                                                     fontSize: "calc(14px + 0.2em)",
@@ -845,7 +845,7 @@ class App extends Component {
                                         <Grid item xs={'auto'} />
                                     </Grid>
                                 </div>
-                                <div style={{overflowY: "scroll", height: "80%",}}>
+                                <div style={{overflowY: "scroll", height: "100%",}}>
                                 {this.state.encouragements.map(encouragement =>
                                     <Success 
                                         message={encouragement.message}
