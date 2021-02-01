@@ -226,7 +226,7 @@ class App extends Component {
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
-        }, 10000);
+        }, 5000);
     }
 
     getSuccesses() {
