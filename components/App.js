@@ -26,6 +26,7 @@ class App extends Component {
             ballsRendered: false,
             successes: [],
             successMsg: "",
+            ballLimitDialog: false,
             familyDialog: false,
             friendsDialog: false,
             societyDialog: false,
@@ -42,7 +43,7 @@ class App extends Component {
         this.addBall = this.addBall.bind(this)
         this.countBalls = this.countBalls.bind(this)
         this.renderBalls = this.renderBalls.bind(this)
-        this.expectationsDialog = false;
+        this.expectationsDialog = false
         this.updateSuccessMsg = this.updateSuccessMsg.bind(this)
         this.updateSuccessUsername = this.updateSuccessUsername.bind(this)
         this.updateWallMsg = this.updateWallMsg.bind(this)
@@ -51,6 +52,21 @@ class App extends Component {
 
     // RESTful add call to firebase
     add_ball(color) {
+        if (localStorage.getItem("ballCount") === null) {
+            localStorage.setItem("ballCount", 1)
+        } else {
+            if (localStorage.getItem("ballCount") == 2) {
+                localStorage.setItem("ballCount", 2);
+                this.setState({ ballLimitDialog: true })
+                return;
+            } else if (localStorage.getItem("ballCount") == 1) {
+                localStorage.setItem("ballCount", 2)
+            } else if (localStorage.getItem("ballCount") == 0) {
+                localStorage.setItem("ballCount", 1)
+            } 
+        }
+        
+        
         console.log("ADDING HERE", color);
         this.resetCounts();
         event.preventDefault();
@@ -64,7 +80,7 @@ class App extends Component {
             .catch(function (error) {
                 console.error("Error adding ball: ", error);
             });
-            this.getBalls()
+        this.getBalls()
     }
 
     addBall(color) {
@@ -408,6 +424,19 @@ class App extends Component {
     render() {
         return (
             <div className='interactive'>
+                <Dialog open={this.state.ballLimitDialog} fullWidth maxWidth='sm'
+                    onClose={()=>this.setState({ballLimitDialog: false})}>
+                    <DialogTitle>
+                        <Typography style={{fontSize: "1.5em"}}>
+                            You're out of balls 😔
+                        </Typography>
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button variant="outlined" onClick={()=>this.setState({ballLimitDialog: false})}>
+                            Ok whatever
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 {/* <Header /> */}
                 <header id="header">
                     <div className="container">
@@ -434,7 +463,7 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/family.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
                                     Family
                                 </Typography>
                             </div>
@@ -453,6 +482,9 @@ class App extends Component {
                             </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({familyDialog: false})}>
                                 Look at others
                             </Button>
@@ -470,7 +502,7 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/friend.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
                                     Friends
                                 </Typography>
                             </div>
@@ -488,6 +520,9 @@ class App extends Component {
                             </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({friendsDialog: false})}>
                                 Look at others
                             </Button>
@@ -505,8 +540,8 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/society.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
-                                    Society
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
+                                    Society 
                                 </Typography>
                             </div>
                         </DialogTitle>
@@ -523,6 +558,9 @@ class App extends Component {
                         </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({societyDialog: false})}>
                                 Look at others
                             </Button>
@@ -540,7 +578,7 @@ class App extends Component {
                         <DialogTitle>
                             <div style={{display: "flex", flexDirection: "row"}}>
                                 <img src="../assets/img/yourself.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "2em"}}>
+                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
                                     Yourself
                                 </Typography>
                             </div>
@@ -558,6 +596,9 @@ class App extends Component {
                             </Grid>
                         </DialogContent>
                         <DialogActions>
+                            <Typography variant="body1">
+                                {2 - localStorage.getItem("ballCount")} remaining marble(s)
+                            </Typography>
                             <Button variant="outlined" onClick={()=>this.setState({yourselfDialog: false})}>
                                 Look at others
                             </Button>
@@ -578,7 +619,7 @@ class App extends Component {
                             The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
                         </p>
                         <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
-                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
+                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations. (2 choices per person)
                         </p>
                         <Grid container spacing={3}>
                             <h2 style={{ marginLeft: "2rem", marginBottom: "0px", fontSize: "1.5rem" }}>Expectations</h2>
@@ -845,7 +886,7 @@ class App extends Component {
                                         <Grid item xs={'auto'} />
                                     </Grid>
                                 </div>
-                                <div style={{overflowY: "scroll", height: "100%",}}>
+                                <div style={{overflowY: "scroll", height: "60vh",}}>
                                 {this.state.encouragements.map(encouragement =>
                                     <Success 
                                         message={encouragement.message}
