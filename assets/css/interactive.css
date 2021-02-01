@@ -2,6 +2,10 @@
     background-color: #f3f2ee;
 }
 
+@media only screen and (max-width: 600px) {
+  
+}
+
 .options {
   float: left;
   margin-left: 3em;

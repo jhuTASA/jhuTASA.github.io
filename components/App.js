@@ -1,4 +1,4 @@
-import React, { Component, setInterval } from 'react';
+import React, { Component } from 'react';
 import '../assets/css/interactive.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -183,14 +183,6 @@ class App extends Component {
         this.getSuccesses()
         this.getEncouragements()
         this.getBalls()
-        try {
-            setInterval(async() => {
-                console.log("API CALL")
-                getBalls();
-            }, 30)
-        } catch(e) {
-            console.log(e);
-        }
     }
 
     getBalls() {
@@ -207,13 +199,34 @@ class App extends Component {
                 if (balls.length > 240) {
                     balls.sort(function() { return 0.5 - Math.random() });
                 }
-
+                console.log("Balls gotten", balls);
                 currentComponent.setState({
                     jar: balls
                 })
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
+        window.setInterval(function() {
+            db.collection("expectations-jar").orderBy("time", "asc").get()
+            .then(function (querySnapshot) {
+                var newBalls = []
+                querySnapshot.forEach(function (doc) {
+                    newBalls.push(doc.data());
+                });
+                if (newBalls !== balls) {
+                    balls = newBalls;
+                    currentComponent.setState({
+                        jar: newBalls
+                    })
+                }
+                //handle jar overflow: randomize array (will eventually only take the first 240 elements)
+                if (newBalls.length > 240) {
+                    newBalls.sort(function() { return 0.5 - Math.random() });
+                }
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+            });
+        }, 10000);
     }
 
     getSuccesses() {
@@ -236,7 +249,29 @@ class App extends Component {
                 })
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
-            });
+        });
+        window.setInterval(function() {
+            db.collection("successes").get()
+            .then(function (querySnapshot) {
+                var newSuccesses = []
+                querySnapshot.forEach(function (doc) {
+                    var data = doc.data();
+                    data['uid'] = doc.id;
+                    newSuccesses.push(data);
+                });
+                // sort successes from most recent to oldest
+                newSuccesses.sort(function(a,b){
+                    return b.time - a.time;
+                });
+                if (newSuccesses !== successes) {
+                    currentComponent.setState({
+                        successes: newSuccesses
+                    })
+                }
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+        });
+        }, [5000])
     }
 
     getEncouragements() {
@@ -261,6 +296,29 @@ class App extends Component {
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
+
+        window.setInterval(function() {
+            db.collection("wall-of-encouragement").get()
+            .then(function (querySnapshot) {
+                var newEncouragements = []
+                querySnapshot.forEach(function (doc) {
+                    var data = doc.data();
+                    data['uid'] = doc.id;
+                    newEncouragements.push(data);
+                });
+                // sort successes from most recent to oldest
+                newEncouragements.sort(function(a,b){
+                    return b.time - a.time;
+                });
+                if (newEncouragements !== encouragements) {
+                    currentComponent.setState({
+                        encouragements: newEncouragements
+                    })
+                }
+            }).catch(function (error) {
+                console.log("Error getting documents: ", error);
+        });
+        }, [5000])
     }
 
     addSuccess() {
