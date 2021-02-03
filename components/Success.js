@@ -31,7 +31,7 @@ export default function Success(props) {
     } else {
         time += "AM"
     }
-    const username = props.username;
+    const username = (props.username !== "") ? props.username : "Anonymous";
     var docRef = (props.type === "success") ? 
         db.collection("successes").doc(uid) : 
         db.collection("wall-of-encouragement").doc(uid);
