@@ -448,7 +448,7 @@ class App extends Component {
                                     <li class="programAnchor"><a href="program.html">Program</a></li>
                                     <li class="speakersAnchor"><a href="speakers.html">Speakers</a></li>
                                     <li class="menu-active"><strong>Interactive</strong></li>
-                                    <a class="register-button" href='https://forms.gle/5fPkhJ115cBfL5eo6'>Register Now!</a>
+                                    {/* <a class="register-button" href='https://forms.gle/5fPkhJ115cBfL5eo6'>Register Now!</a> */}
                                 </ul>
                             </nav>
                         </div>
@@ -619,7 +619,8 @@ class App extends Component {
                             The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
                         </p>
                         <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
-                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations. (2 choices per person)
+                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.  
+                            <b>  You get two choices, so choose wisely!</b>
                         </p>
                         <Grid container spacing={3}>
                             <h2 style={{ marginLeft: "2rem", marginBottom: "0px", fontSize: "1.5rem" }}>Expectations</h2>
