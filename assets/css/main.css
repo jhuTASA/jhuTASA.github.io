@@ -215,8 +215,8 @@ a.register-button {
   color: white;
   background-color: #cd3f60;
   padding: 10px 12px;
-  margin-left: 5%;
-  margin-right: -5%;
+  margin-left: 2%;
+  margin-right: -2%;
   font-weight: 700;
   white-space: nowrap;
   text-decoration: none;
@@ -300,6 +300,7 @@ footer div {
 }
 
 footer .links {
+  margin-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -320,7 +321,7 @@ footer .links ul {
 footer .links a {
   text-decoration: none;
   color: #041315;
-  font-size: 28px;
+  font-size: 20px;
   letter-spacing: 1px;
 }
 
@@ -351,9 +352,9 @@ footer .media .media-links ul {
   padding-left: 0;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 760px) {
   footer .links {
-    margin-top: 20%;
+    margin-top: 50px;
   }
 
   footer .links a {

@@ -104,3 +104,7 @@
   align-self: center;
   margin-left: 25%;
 }
+
+.MuiTypography-body1 {
+  padding-right: 50px;
+}

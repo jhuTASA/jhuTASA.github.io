@@ -63,10 +63,10 @@ class App extends Component {
                 localStorage.setItem("ballCount", 2)
             } else if (localStorage.getItem("ballCount") == 0) {
                 localStorage.setItem("ballCount", 1)
-            } 
+            }
         }
-        
-        
+
+
         console.log("ADDING HERE", color);
         this.resetCounts();
         event.preventDefault();
@@ -87,19 +87,19 @@ class App extends Component {
         var totalCount = this.redCount + this.blueCount + this.greenCount + this.purpleCount;
         switch (color) {
             case "red":
-                if(totalCount < 240)
+                if (totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }} />
                 return;
             case "blue":
-                if(totalCount < 240)
+                if (totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }} />
                 return;
             case "purple":
-                if(totalCount < 240)
+                if (totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }} />
                 return;
             case "green":
-                if(totalCount < 240)
+                if (totalCount < 240)
                     return <div className='jar-ball animated fadeInDown' style={{ backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }} />
                 return;
         }
@@ -107,8 +107,8 @@ class App extends Component {
 
     renderBalls(jar) {
         if (jar.length !== 0) this.countBalls(jar);
-        return(
-            <div style={{backgroundColor: "red"}}>
+        return (
+            <div style={{ backgroundColor: "red" }}>
                 {jar.map((value) => (this.addBall(value.color)))}
             </div>
         )
@@ -116,12 +116,12 @@ class App extends Component {
 
     countBalls(jar) {
         let currentComponent = this;
-        var red=0; 
-        var blue = 0; 
+        var red = 0;
+        var blue = 0;
         var purple = 0;
         var green = 0;
         for (var i = 0; i < jar.length; i++) {
-            switch(jar[i].color) {
+            switch (jar[i].color) {
                 case 'red':
                     red++;
                     break;
@@ -155,7 +155,7 @@ class App extends Component {
         var description = "";
         var title = "";
         var img = "";
-        switch(ball) {
+        switch (ball) {
             case 'Family':
                 description = "Family is important!"
                 title = "Family"
@@ -176,9 +176,9 @@ class App extends Component {
                 break;
         }
 
-        return(
+        return (
             <Grid container xs={12}>
-                <Typography variant="h2" style={{marginBottom: "5%"}}>
+                <Typography variant="h2" style={{ marginBottom: "5%" }}>
                     {title}
                 </Typography>
                 <Typography variant="h3">
@@ -211,9 +211,9 @@ class App extends Component {
                 querySnapshot.forEach(function (doc) {
                     balls.push(doc.data());
                 });
-                //handle jar overflow: randomize array (will eventually only take the first 240 elements)
-                if (balls.length > 240) {
-                    balls.sort(function() { return 0.5 - Math.random() });
+                //handle jar overflow: randomize array (will eventually only take the first 500 elements)
+                if (balls.length > 500) {
+                    balls.sort(function () { return 0.5 - Math.random() });
                 }
                 console.log("Balls gotten", balls);
                 currentComponent.setState({
@@ -222,26 +222,26 @@ class App extends Component {
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
             });
-        window.setInterval(function() {
+        window.setInterval(function () {
             db.collection("expectations-jar").orderBy("time", "asc").get()
-            .then(function (querySnapshot) {
-                var newBalls = []
-                querySnapshot.forEach(function (doc) {
-                    newBalls.push(doc.data());
+                .then(function (querySnapshot) {
+                    var newBalls = []
+                    querySnapshot.forEach(function (doc) {
+                        newBalls.push(doc.data());
+                    });
+                    if (newBalls !== balls) {
+                        balls = newBalls;
+                        currentComponent.setState({
+                            jar: newBalls
+                        })
+                    }
+                    //handle jar overflow: randomize array (will eventually only take the first 500 elements)
+                    if (newBalls.length > 5000) {
+                        newBalls.sort(function () { return 0.5 - Math.random() });
+                    }
+                }).catch(function (error) {
+                    console.log("Error getting documents: ", error);
                 });
-                if (newBalls !== balls) {
-                    balls = newBalls;
-                    currentComponent.setState({
-                        jar: newBalls
-                    })
-                }
-                //handle jar overflow: randomize array (will eventually only take the first 240 elements)
-                if (newBalls.length > 240) {
-                    newBalls.sort(function() { return 0.5 - Math.random() });
-                }
-            }).catch(function (error) {
-                console.log("Error getting documents: ", error);
-            });
         }, 5000);
     }
 
@@ -257,7 +257,7 @@ class App extends Component {
                 });
                 console.log(successes);
                 // sort successes from most recent to oldest
-                successes.sort(function(a,b){
+                successes.sort(function (a, b) {
                     return b.time - a.time;
                 });
                 currentComponent.setState({
@@ -265,28 +265,28 @@ class App extends Component {
                 })
             }).catch(function (error) {
                 console.log("Error getting documents: ", error);
-        });
-        window.setInterval(function() {
+            });
+        window.setInterval(function () {
             db.collection("successes").get()
-            .then(function (querySnapshot) {
-                var newSuccesses = []
-                querySnapshot.forEach(function (doc) {
-                    var data = doc.data();
-                    data['uid'] = doc.id;
-                    newSuccesses.push(data);
+                .then(function (querySnapshot) {
+                    var newSuccesses = []
+                    querySnapshot.forEach(function (doc) {
+                        var data = doc.data();
+                        data['uid'] = doc.id;
+                        newSuccesses.push(data);
+                    });
+                    // sort successes from most recent to oldest
+                    newSuccesses.sort(function (a, b) {
+                        return b.time - a.time;
+                    });
+                    if (newSuccesses !== successes) {
+                        currentComponent.setState({
+                            successes: newSuccesses
+                        })
+                    }
+                }).catch(function (error) {
+                    console.log("Error getting documents: ", error);
                 });
-                // sort successes from most recent to oldest
-                newSuccesses.sort(function(a,b){
-                    return b.time - a.time;
-                });
-                if (newSuccesses !== successes) {
-                    currentComponent.setState({
-                        successes: newSuccesses
-                    })
-                }
-            }).catch(function (error) {
-                console.log("Error getting documents: ", error);
-        });
         }, [5000])
     }
 
@@ -302,7 +302,7 @@ class App extends Component {
                     console.log(encouragements);
                 });
                 // sort encouragements from most recent to oldest
-                encouragements.sort(function(a,b){
+                encouragements.sort(function (a, b) {
                     return b.time - a.time;
                 });
                 console.log(encouragements);
@@ -313,49 +313,49 @@ class App extends Component {
                 console.log("Error getting documents: ", error);
             });
 
-        window.setInterval(function() {
+        window.setInterval(function () {
             db.collection("wall-of-encouragement").get()
-            .then(function (querySnapshot) {
-                var newEncouragements = []
-                querySnapshot.forEach(function (doc) {
-                    var data = doc.data();
-                    data['uid'] = doc.id;
-                    newEncouragements.push(data);
+                .then(function (querySnapshot) {
+                    var newEncouragements = []
+                    querySnapshot.forEach(function (doc) {
+                        var data = doc.data();
+                        data['uid'] = doc.id;
+                        newEncouragements.push(data);
+                    });
+                    // sort successes from most recent to oldest
+                    newEncouragements.sort(function (a, b) {
+                        return b.time - a.time;
+                    });
+                    if (newEncouragements !== encouragements) {
+                        currentComponent.setState({
+                            encouragements: newEncouragements
+                        })
+                    }
+                }).catch(function (error) {
+                    console.log("Error getting documents: ", error);
                 });
-                // sort successes from most recent to oldest
-                newEncouragements.sort(function(a,b){
-                    return b.time - a.time;
-                });
-                if (newEncouragements !== encouragements) {
-                    currentComponent.setState({
-                        encouragements: newEncouragements
-                    })
-                }
-            }).catch(function (error) {
-                console.log("Error getting documents: ", error);
-        });
         }, [5000])
     }
 
     addSuccess() {
         if (this.state.successMsg) {
-            if (!this.state.successUsername) { 
+            if (!this.state.successUsername) {
                 this.setState({
                     successUsername: "Anonymous"
                 })
-            } 
+            }
             db.collection("successes").add({
                 username: this.state.successUsername,
                 message: this.state.successMsg,
                 likes: 0,
                 time: (new Date()).getTime(),
             })
-            .then(function (docRef) {
-                console.log("Success written with ID: ", docRef.id);
-            })
-            .catch(function (error) {
-                console.error("Error adding Success: ", error);
-            });
+                .then(function (docRef) {
+                    console.log("Success written with ID: ", docRef.id);
+                })
+                .catch(function (error) {
+                    console.error("Error adding Success: ", error);
+                });
             this.getSuccesses();
             this.setState({
                 successMsg: ""
@@ -367,19 +367,19 @@ class App extends Component {
 
     addToWall() {
         if (this.state.wallMsg) {
-            if (this.state.successUsername) { 
+            if (this.state.successUsername) {
                 db.collection("wall-of-encouragement").add({
                     username: this.state.successUsername,
                     message: this.state.wallMsg,
                     likes: 0,
                     time: (new Date()).getTime(),
                 })
-                .then(function (docRef) {
-                    console.log("Encouragement written with ID: ", docRef.id);
-                })
-                .catch(function (error) {
-                    console.error("Error adding Encouragement: ", error);
-                });
+                    .then(function (docRef) {
+                        console.log("Encouragement written with ID: ", docRef.id);
+                    })
+                    .catch(function (error) {
+                        console.error("Error adding Encouragement: ", error);
+                    });
                 this.getEncouragements();
                 console.log(this.state.encouragements);
             } else {
@@ -389,12 +389,12 @@ class App extends Component {
                     likes: 0,
                     time: (new Date()).getTime(),
                 })
-                .then(function (docRef) {
-                    console.log("Encouragement written with ID: ", docRef.id);
-                })
-                .catch(function (error) {
-                    console.error("Error adding Encouragement: ", error);
-                });
+                    .then(function (docRef) {
+                        console.log("Encouragement written with ID: ", docRef.id);
+                    })
+                    .catch(function (error) {
+                        console.error("Error adding Encouragement: ", error);
+                    });
                 this.getEncouragements();
             }
             this.setState({
@@ -425,14 +425,14 @@ class App extends Component {
         return (
             <div className='interactive'>
                 <Dialog open={this.state.ballLimitDialog} fullWidth maxWidth='sm'
-                    onClose={()=>this.setState({ballLimitDialog: false})}>
+                    onClose={() => this.setState({ ballLimitDialog: false })}>
                     <DialogTitle>
-                        <Typography style={{fontSize: "1.5em"}}>
+                        <Typography style={{ fontSize: "1.5em" }}>
                             You're out of balls 😔
                         </Typography>
                     </DialogTitle>
                     <DialogActions>
-                        <Button variant="outlined" onClick={()=>this.setState({ballLimitDialog: false})}>
+                        <Button variant="outlined" onClick={() => this.setState({ ballLimitDialog: false })}>
                             Ok whatever
                         </Button>
                     </DialogActions>
@@ -447,36 +447,35 @@ class App extends Component {
                                     <li class="programAnchor"><a href="about.html">About</a></li>
                                     <li class="programAnchor"><a href="program.html">Program</a></li>
                                     <li class="speakersAnchor"><a href="speakers.html">Speakers</a></li>
-                                    <li class="menu-active"><strong>Interactive</strong></li>
-                                    {/* <a class="register-button" href='https://forms.gle/5fPkhJ115cBfL5eo6'>Register Now!</a> */}
+                                    <a class="register-button" href='#top'>Interact!</a>
                                 </ul>
                             </nav>
                         </div>
                     </div>
                 </header>
 
-                <div style={{ position: "relative", paddingTop: "calc(1vh + 60px)", marginBottom: "50px", zIndex: 3}}>
+                <div style={{ position: "relative", paddingTop: "calc(1vh + 60px)", marginBottom: "50px", zIndex: 3 }}>
 
                     {/* EXPECTATIONS JAR */}
                     <Dialog open={this.state.familyDialog} fullWidth maxWidth='sm'
-                        onClose={()=>this.setState({familyDialog: false})}>
+                        onClose={() => this.setState({ familyDialog: false })}>
                         <DialogTitle>
-                            <div style={{display: "flex", flexDirection: "row"}}>
-                                <img src="../assets/img/family.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                <img src="../assets/img/family.png" style={{ height: "3em", width: 'auto', borderRadius: "50%" }} />
+                                <Typography style={{ fontSize: "1.5em", marginTop: "0.25em" }}>
                                     Family
                                 </Typography>
                             </div>
                         </DialogTitle>
 
                         <DialogContent>
-                            <Grid container xs={12}>
+                            <Grid container spacing={3}>
                                 <Grid item xs={5}>
-                                    <img src="../assets/img/family_bg.png"  className="dialog_img"/>                                
+                                    <img src="../assets/img/family_bg.png" className="dialog_img" />
                                 </Grid>
                                 <Grid item xs={7}>
                                     <Typography float="right" variant="body1">
-                                        Family is important!
+                                        Family members often times have many expectations of how we should act, behave, and live. Their expectations of you greatly influence the choices you make. These could result in stress and anxiety. Family members also carry expectations that may be passed down through culture and tradition.
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -485,12 +484,12 @@ class App extends Component {
                             <Typography variant="body1">
                                 {2 - localStorage.getItem("ballCount")} remaining marble(s)
                             </Typography>
-                            <Button variant="outlined" onClick={()=>this.setState({familyDialog: false})}>
+                            <Button variant="outlined" onClick={() => this.setState({ familyDialog: false })}>
                                 Look at others
                             </Button>
                             <Button variant="outlined"
-                                onClick={()=>{
-                                    this.setState({familyDialog: false}); 
+                                onClick={() => {
+                                    this.setState({ familyDialog: false });
                                     this.add_ball("red");
                                 }}>
                                 Choose marble
@@ -498,23 +497,23 @@ class App extends Component {
                         </DialogActions>
                     </Dialog>
                     <Dialog open={this.state.friendsDialog} fullWidth maxWidth='sm'
-                        onClose={()=>this.setState({friendsDialog: false})}>
+                        onClose={() => this.setState({ friendsDialog: false })}>
                         <DialogTitle>
-                            <div style={{display: "flex", flexDirection: "row"}}>
-                                <img src="../assets/img/friend.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                <img src="../assets/img/friend.png" style={{ height: "3em", width: 'auto', borderRadius: "50%" }} />
+                                <Typography style={{ fontSize: "1.5em", marginTop: "0.25em" }}>
                                     Friends
                                 </Typography>
                             </div>
                         </DialogTitle>
                         <DialogContent>
-                            <Grid container xs={12}>
+                            <Grid container spacing={3}>
                                 <Grid item xs={5}>
-                                    <img src="../assets/img/friends_bg.png"  className="dialog_img"/>                                
+                                    <img src="../assets/img/friends_bg.png" className="dialog_img" />
                                 </Grid>
                                 <Grid item xs={7}>
                                     <Typography float="right" variant="body1">
-                                        Friends are important!
+                                        Your friends influence you to act in certain ways and expect you to achieve different things. They can be positive or negative influences. Often times you may want to fit in with your friend group and compromise your beliefs.
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -523,12 +522,12 @@ class App extends Component {
                             <Typography variant="body1">
                                 {2 - localStorage.getItem("ballCount")} remaining marble(s)
                             </Typography>
-                            <Button variant="outlined" onClick={()=>this.setState({friendsDialog: false})}>
+                            <Button variant="outlined" onClick={() => this.setState({ friendsDialog: false })}>
                                 Look at others
                             </Button>
                             <Button variant="outlined"
-                                onClick={()=>{
-                                    this.setState({friendsDialog: false}); 
+                                onClick={() => {
+                                    this.setState({ friendsDialog: false });
                                     this.add_ball("blue");
                                 }}>
                                 Choose marble
@@ -536,37 +535,37 @@ class App extends Component {
                         </DialogActions>
                     </Dialog>
                     <Dialog open={this.state.societyDialog} fullWidth maxWidth='sm'
-                        onClose={()=>this.setState({societyDialog: false})}>
+                        onClose={() => this.setState({ societyDialog: false })}>
                         <DialogTitle>
-                            <div style={{display: "flex", flexDirection: "row"}}>
-                                <img src="../assets/img/society.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
-                                    Society 
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                <img src="../assets/img/society.png" style={{ height: "3em", width: 'auto', borderRadius: "50%" }} />
+                                <Typography style={{ fontSize: "1.5em", marginTop: "0.25em" }}>
+                                    Society
                                 </Typography>
                             </div>
                         </DialogTitle>
                         <DialogContent>
-                        <Grid container xs={12}>
-                            <Grid item xs={5}>
-                                <img src="../assets/img/society_bg.png"  className="dialog_img"/>
-                            </Grid>
-                            <Grid item xs={7}>
-                                <Typography float="right" variant="body1">
-                                    Society is important!
+                            <Grid container spacing={3}>
+                                <Grid item xs={5}>
+                                    <img src="../assets/img/society_bg.png" className="dialog_img" />
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography float="right" variant="body1">
+                                        Depending on the society or community you are in, they can force expectations on you to conform and act “normal” in order for you to cooperate.
                                 </Typography>
+                                </Grid>
                             </Grid>
-                        </Grid>
                         </DialogContent>
                         <DialogActions>
                             <Typography variant="body1">
                                 {2 - localStorage.getItem("ballCount")} remaining marble(s)
                             </Typography>
-                            <Button variant="outlined" onClick={()=>this.setState({societyDialog: false})}>
+                            <Button variant="outlined" onClick={() => this.setState({ societyDialog: false })}>
                                 Look at others
                             </Button>
                             <Button variant="outlined"
-                                onClick={()=>{
-                                    this.setState({societyDialog: false}); 
+                                onClick={() => {
+                                    this.setState({ societyDialog: false });
                                     this.add_ball("purple");
                                 }}>
                                 Choose marble
@@ -574,23 +573,23 @@ class App extends Component {
                         </DialogActions>
                     </Dialog>
                     <Dialog open={this.state.yourselfDialog} fullWidth maxWidth='sm'
-                        onClose={()=>this.setState({yourselfDialog: false})}>
+                        onClose={() => this.setState({ yourselfDialog: false })}>
                         <DialogTitle>
-                            <div style={{display: "flex", flexDirection: "row"}}>
-                                <img src="../assets/img/yourself.png" style={{height: "3em", width: 'auto', borderRadius: "50%"}}/>
-                                <Typography style={{fontSize: "1.5em", marginTop: "0.25em"}}>
+                            <div style={{ display: "flex", flexDirection: "row" }}>
+                                <img src="../assets/img/yourself.png" style={{ height: "3em", width: 'auto', borderRadius: "50%" }} />
+                                <Typography style={{ fontSize: "1.5em", marginTop: "0.25em" }}>
                                     Yourself
                                 </Typography>
                             </div>
                         </DialogTitle>
                         <DialogContent>
-                            <Grid container xs={12}>
+                            <Grid container spacing={3}>
                                 <Grid item xs={5}>
-                                    <img src="../assets/img/yourself_bg.png"  className="dialog_img"/>
+                                    <img src="../assets/img/yourself_bg.png" className="dialog_img" />
                                 </Grid>
                                 <Grid item xs={7}>
                                     <Typography float="right" variant="body1">
-                                        [some blurb here]
+                                        You’ve placed heavy expectations on yourself to achieve a certain level of success or achieve different goals. These self expectations could put a heavy burden on yourself and/or push you to work harder.
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -599,12 +598,12 @@ class App extends Component {
                             <Typography variant="body1">
                                 {2 - localStorage.getItem("ballCount")} remaining marble(s)
                             </Typography>
-                            <Button variant="outlined" onClick={()=>this.setState({yourselfDialog: false})}>
+                            <Button variant="outlined" onClick={() => this.setState({ yourselfDialog: false })}>
                                 Look at others
                             </Button>
                             <Button variant="outlined"
-                                onClick={()=>{
-                                    this.setState({yourselfDialog: false}); 
+                                onClick={() => {
+                                    this.setState({ yourselfDialog: false });
                                     this.add_ball("green");
                                 }}>
                                 Choose marble
@@ -612,14 +611,14 @@ class App extends Component {
                         </DialogActions>
                     </Dialog>
                     <Container maxWidth={'lg'}>
-                        <h1 style={{ marginLeft: "1rem", color: "#265A26",}}>
+                        <h1 style={{ marginLeft: "1rem", color: "#265A26", }}>
                             Jar of Expectations
                         </h1>
                         <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                             The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
                         </p>
                         <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
-                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.  
+                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
                             <b>  You get two choices, so choose wisely!</b>
                         </p>
                         <Grid container spacing={3}>
@@ -629,25 +628,25 @@ class App extends Component {
                                     <div className='options'>
                                         <h3>Family</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "red", backgroundImage: 'url(../assets/img/family.png)' }}
-                                            onClick={()=>this.setState({familyDialog: true})}
+                                            onClick={() => this.setState({ familyDialog: true })}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Friends</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "blue", backgroundImage: 'url(../assets/img/friend.png)' }}
-                                            onClick={()=>this.setState({friendsDialog: true})}
+                                            onClick={() => this.setState({ friendsDialog: true })}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Society</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "purple", backgroundImage: 'url(../assets/img/society.png)' }}
-                                            onClick={()=>this.setState({societyDialog: true})}
+                                            onClick={() => this.setState({ societyDialog: true })}
                                         />
                                     </div>
                                     <div className='options'>
                                         <h3>Yourself</h3>
                                         <div className='ball' style={{ zIndex: 1, backgroundColor: "darkslategray", backgroundImage: 'url(../assets/img/yourself.png)' }}
-                                            onClick={()=>this.setState({yourselfDialog: true})}
+                                            onClick={() => this.setState({ yourselfDialog: true })}
                                         />
                                     </div>
                                 </div>
@@ -657,7 +656,7 @@ class App extends Component {
                             Our Jar
                         </h2>
                         <Grid container spacing={3} style={{ marginBottom: "0" }}>
-                            <Grid item md={2} xs={0}>
+                            <Grid item md={2} xs={'auto'}>
                             </Grid>
                             <Grid item xs={11} md={8}>
                                 <div style={{
@@ -687,7 +686,7 @@ class App extends Component {
                                 </div>
                             </Grid>
                             <Grid item md={2} xs={12}>
-                                <div style={{ float: "left", marginLeft: "1%", marginTop: '10vh'}}>
+                                <div style={{ float: "left", marginLeft: "1%", marginTop: '10vh' }}>
                                     <h3>Family: {this.redCount}</h3>
                                     <h3>Friends: {this.blueCount}</h3>
                                     <h3>Society: {this.purpleCount}</h3>
@@ -700,8 +699,8 @@ class App extends Component {
                     <hr />
 
                     {/* SHARING OUR SUCCESSES */}
-                    <div style={{zIndex: 1}}>
-                        <Container maxWidth={'lg'} style={{zIndex: 1,}}>
+                    <div style={{ zIndex: 1 }}>
+                        <Container maxWidth={'lg'} style={{ zIndex: 1, }}>
                             <h1 style={{ marginLeft: "1rem", color: "#265A26", }}>Sharing our Successes</h1>
                             <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
                                 Share stories of success, traditional or nontraditional, of yourself or of others - let's celebrate each other’s successes!
@@ -775,7 +774,7 @@ class App extends Component {
                                                     width: '100%',
                                                     zIndex: 1,
                                                 }}
-                                                onClick={()=>this.addSuccess()}>
+                                                onClick={() => this.addSuccess()}>
                                                 <Typography variant="body1" style={{ color: "white" }}>
                                                     Share
                                                 </Typography>
@@ -785,20 +784,20 @@ class App extends Component {
                                         </Grid>
                                     </Grid>
                                 </div>
-                            <div style={{overflowY: "scroll", height: "60vh", zIndex: 1,}}>
-                                {this.state.successes.map(success =>
-                                    <Success 
-                                        message={success.message}
-                                        likes={success.likes}
-                                        time={success.time}
-                                        username={success.username}
-                                        uid={success.uid} 
-                                        type="success"/>
-                                )}
+                                <div style={{ overflowY: "scroll", height: "60vh", zIndex: 1 }}>
+                                    {this.state.successes.map(success =>
+                                        <Success
+                                            message={success.message}
+                                            likes={success.likes}
+                                            time={success.time}
+                                            username={success.username}
+                                            uid={success.uid}
+                                            type="success" />
+                                    )}
+                                </div>
+
                             </div>
-                            
-                            </div>
-                            
+
                         </Container>
                     </div>
                     <hr />
@@ -879,7 +878,7 @@ class App extends Component {
                                                     width: '100%'
                                                 }}>
                                                 <Typography variant="body1" style={{ color: "white" }}
-                                                    onClick={()=>this.addToWall()}>
+                                                    onClick={() => this.addToWall()}>
                                                     Share
                                         </Typography>
                                             </Button>
@@ -887,15 +886,15 @@ class App extends Component {
                                         <Grid item xs={'auto'} />
                                     </Grid>
                                 </div>
-                                <div style={{overflowY: "scroll", height: "60vh",}}>
-                                {this.state.encouragements.map(encouragement =>
-                                    <Success 
-                                        message={encouragement.message}
-                                        likes={encouragement.likes}
-                                        time={encouragement.time}
-                                        username={encouragement.username} 
-                                        uid={encouragement.uid}
-                                        type="encouragement"
+                                <div style={{ overflowY: "scroll", height: "60vh", }}>
+                                    {this.state.encouragements.map(encouragement =>
+                                        <Success
+                                            message={encouragement.message}
+                                            likes={encouragement.likes}
+                                            time={encouragement.time}
+                                            username={encouragement.username}
+                                            uid={encouragement.uid}
+                                            type="encouragement"
                                         />
                                     )}
                                 </div>
