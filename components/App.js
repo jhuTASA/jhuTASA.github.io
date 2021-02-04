@@ -428,7 +428,7 @@ class App extends Component {
                     onClose={() => this.setState({ ballLimitDialog: false })}>
                     <DialogTitle>
                         <Typography style={{ fontSize: "1.5em" }}>
-                            You're out of balls 😔
+                            You're out of marbles 😔
                         </Typography>
                     </DialogTitle>
                     <DialogActions>
@@ -474,8 +474,8 @@ class App extends Component {
                                     <img src="../assets/img/family_bg.png" className="dialog_img" />
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <Typography float="right" variant="body1">
-                                        Family members often times have many expectations of how we should act, behave, and live. Their expectations of you greatly influence the choices you make. These could result in stress and anxiety. Family members also carry expectations that may be passed down through culture and tradition.
+                                    <Typography float="right" variant="body1" style={{marginLeft: "1em"}}>
+                                        Family members oftentimes have many expectations of how we should act, behave, and live. Their expectations of you greatly influence the choices you make. These could result in stress and anxiety. Family members also carry expectations that may be passed down through culture and tradition.
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -512,7 +512,7 @@ class App extends Component {
                                     <img src="../assets/img/friends_bg.png" className="dialog_img" />
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <Typography float="right" variant="body1">
+                                    <Typography float="right" variant="body1" style={{marginLeft: "1em"}}>
                                         Your friends influence you to act in certain ways and expect you to achieve different things. They can be positive or negative influences. Often times you may want to fit in with your friend group and compromise your beliefs.
                                     </Typography>
                                 </Grid>
@@ -550,7 +550,7 @@ class App extends Component {
                                     <img src="../assets/img/society_bg.png" className="dialog_img" />
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <Typography float="right" variant="body1">
+                                    <Typography float="right" variant="body1" style={{marginLeft: "1em"}}>
                                         Depending on the society or community you are in, they can force expectations on you to conform and act “normal” in order for you to cooperate.
                                 </Typography>
                                 </Grid>
@@ -576,7 +576,7 @@ class App extends Component {
                         onClose={() => this.setState({ yourselfDialog: false })}>
                         <DialogTitle>
                             <div style={{ display: "flex", flexDirection: "row" }}>
-                                <img src="../assets/img/yourself.png" style={{ height: "3em", width: 'auto', borderRadius: "50%" }} />
+                                <img src="../assets/img/yourself.png" style={{ height: "3em", width: 'auto', borderRadius: "50%"}} />
                                 <Typography style={{ fontSize: "1.5em", marginTop: "0.25em" }}>
                                     Yourself
                                 </Typography>
@@ -615,10 +615,10 @@ class App extends Component {
                             Jar of Expectations
                         </h1>
                         <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
-                            The different colored balls symbolize common expectations faced by Taiwanese and Taiwanese American students.
+                            The different colored marbles symbolize common expectations faced by Taiwanese and Taiwanese American students.
                         </p>
                         <p style={{ marginLeft: "1rem", fontSize: "calc(16px + 0.1em)" }}>
-                            We encourage you to choose a ball that represents the expectation that you feel has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
+                            We encourage you to choose a marble that represents the expectation that has most affected you, resulting in a multi-colored jar of colors showcasing the frequency of these expectations.
                             <b>  You get two choices, so choose wisely!</b>
                         </p>
                         <Grid container spacing={3}>
