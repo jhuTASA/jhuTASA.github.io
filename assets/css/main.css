@@ -75,6 +75,18 @@ body span {
   background-color: #265A26;
 }
 
+.conference-button {
+  border: 3px solid #cd3f60;
+  background-color: #cd3f60;
+  color: white;
+}
+
+.conference-button:hover {
+  color: #500013;
+  background-color: #f57d99;
+}
+
+
 @media (max-width: 760px) {
   .button {
     padding: 2px 10px;

@@ -447,7 +447,7 @@ class App extends Component {
                                     <li class="programAnchor"><a href="about.html">About</a></li>
                                     <li class="programAnchor"><a href="program.html">Program</a></li>
                                     <li class="speakersAnchor"><a href="speakers.html">Speakers</a></li>
-                                    <a class="register-button" href='#top'>Interact!</a>
+                                    {/* <a class="register-button" href='#top'>Interact!</a> */}
                                 </ul>
                             </nav>
                         </div>
