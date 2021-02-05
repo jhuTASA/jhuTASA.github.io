@@ -19,14 +19,20 @@ export default function Success(props) {
     var timedate = new Date(props.time);
     var date = timedate.toLocaleDateString();
     var time = "";
-    var hours = (timedate.getHours() % 12).toString();
+    var hours = timedate.getHours();
+    if (hours > 12) {
+        hours -= 12;
+    }
+    if (hours == 0) {
+        hours = 12;
+    }
     time += hours;
     time += ":";
     if(timedate.getMinutes() < 10) {
         time += "0";
     }
     time += timedate.getMinutes();
-    if(timedate.getHours() > 12) {
+    if(timedate.getHours() >= 12) {
         time += "PM"
     } else {
         time += "AM"

@@ -773,9 +773,11 @@ class App extends Component {
                                                     fontSize: "16px",
                                                     width: '100%',
                                                     zIndex: 1,
+                                                    alignText: center,
+                                                    alignText: "center",
                                                 }}
                                                 onClick={() => this.addSuccess()}>
-                                                <Typography variant="body1" style={{ color: "white" }}>
+                                                <Typography variant="body1" style={{ color: "white", textAlign: "center" }}>
                                                     Share
                                                 </Typography>
                                             </Button>
